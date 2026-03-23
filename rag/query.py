@@ -239,6 +239,23 @@ def retrieve_multi(question, top_k_per_query=TOP_K_PER_QUERY, max_chunks=MAX_CHU
     return semantic_chunks + guaranteed
 
 
+def _intl_student_note(question):
+    """Return external resource links if the question is about international students."""
+    q_lower = question.lower()
+    if any(kw in q_lower for kw in [
+        "international student", "f-1", "f1 visa", "i-20", "i20", "sevis",
+        "travel re-entry", "visa", "国际生", "签证", "留学生", "入境",
+    ]):
+        return (
+            "\n\nAdditional resources for international students (include these links in your answer when relevant):\n"
+            "- Traveling as an International Student: https://studyinthestates.dhs.gov/students/study/traveling-as-an-international-student\n"
+            "- Travel Re-entry F Visa: https://www.ice.gov/sevis/travel\n"
+            "- Study in the States (DHS): https://studyinthestates.dhs.gov/\n"
+            "- Travel Reminders & Documents: https://studyinthestates.dhs.gov/students/study/travel-reminders-and-documents\n"
+        )
+    return ""
+
+
 def answer(question, chat_history=None):
     """
     Generate an answer using multi-query retrieved context.
@@ -316,7 +333,7 @@ def answer(question, chat_history=None):
 
     messages.append({
         "role": "user",
-        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}",
+        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}{_intl_student_note(question)}",
     })
 
     sources = []
@@ -414,7 +431,7 @@ def answer_stream(question, chat_history=None):
 
     messages.append({
         "role": "user",
-        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}",
+        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}{_intl_student_note(question)}",
     })
 
     # Yield sources first so frontend can display them early
