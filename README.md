@@ -8,35 +8,77 @@ Built by the Webb Schools Coding/AI Club.
 
 ## Architecture
 
-```
-User Question
-     │
-     ▼
-┌─────────────┐     ┌──────────────────┐     ┌─────────────┐
-│  Frontend    │────▶│  FastAPI Server   │────▶│  RAG Engine │
-│  (HTML/JS)  │◀────│  (Streaming SSE) │◀────│  (query.py) │
-└─────────────┘     └──────────────────┘     └──────┬──────┘
-                                                     │
-                                    ┌────────────────┼────────────────┐
-                                    ▼                ▼                ▼
-                             ┌────────────┐  ┌─────────────┐  ┌───────────┐
-                             │ Multi-Query│  │  ChromaDB    │  │ Keyword   │
-                             │ Expansion  │  │  Vector DB   │  │ Fallback  │
-                             │ (Haiku)    │  │  (Gemini)    │  │ (JSON)    │
-                             └────────────┘  └─────────────┘  └───────────┘
-                                                                     │
-                                                              ┌──────┴──────┐
-                                                              ▼             ▼
-                                                        Answer Gen    Streaming
-                                                        (Sonnet)      Response
+```mermaid
+flowchart TB
+    User([" User Question "]):::userNode
+
+    subgraph Frontend["Frontend"]
+        UI["Chat UI<br/><sub>HTML / CSS / JS + marked.js</sub>"]:::feNode
+    end
+
+    subgraph Backend["Backend — FastAPI"]
+        API["API Server<br/><sub>Streaming SSE · Rate Limiting</sub>"]:::beNode
+    end
+
+    subgraph RAG["RAG Engine — query.py"]
+        direction TB
+        QE["Query Expansion<br/><sub>Claude Haiku 4.5</sub>"]:::aiNode
+        TS["Topic Supplements<br/><sub>Pattern-matched queries</sub>"]:::logicNode
+
+        subgraph Retrieval["Hybrid Retrieval"]
+            direction LR
+            SEM["Semantic Search<br/><sub>ChromaDB + Gemini Embeddings</sub>"]:::dbNode
+            KW["Keyword Fallback<br/><sub>JSON full-text scan</sub>"]:::dbNode
+        end
+
+        GEN["Answer Generation<br/><sub>Claude Sonnet 4</sub>"]:::aiNode
+    end
+
+    subgraph Data["Knowledge Base"]
+        direction LR
+        WEB[("webb.org<br/>61 pages")]:::dataNode
+        PDF[("PDFs<br/>Handbook · Catalog")]:::dataNode
+        VDB[("ChromaDB<br/>822 chunks")]:::dataNode
+    end
+
+    User --> UI
+    UI -- "POST /api/chat/stream" --> API
+    API --> QE
+    QE --> TS
+    TS --> SEM & KW
+    SEM --> GEN
+    KW --> GEN
+    GEN -- "SSE stream" --> API
+    API --> UI
+
+    WEB & PDF -.->|"scraper.py · pdf_loader.py"| VDB
+    VDB ---|"query embeddings"| SEM
+
+    classDef userNode fill:#1a3a5c,stroke:#1a3a5c,color:#fff,font-weight:bold
+    classDef feNode fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
+    classDef beNode fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
+    classDef aiNode fill:#f3e8ff,stroke:#7c3aed,color:#5b21b6,font-weight:bold
+    classDef logicNode fill:#fef3c7,stroke:#d97706,color:#92400e
+    classDef dbNode fill:#dbeafe,stroke:#2563eb,color:#1e40af
+    classDef dataNode fill:#f0fdf4,stroke:#16a34a,color:#166534
+
+    style Frontend fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,rx:8
+    style Backend fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,rx:8
+    style RAG fill:#faf5ff,stroke:#7c3aed,stroke-width:2px,rx:8
+    style Retrieval fill:#eff6ff,stroke:#2563eb,stroke-width:1px,rx:6
+    style Data fill:#f0fdf4,stroke:#16a34a,stroke-width:1px,rx:8
 ```
 
 **Tech Stack**:
-- **Embeddings**: Google Gemini `gemini-embedding-001` (768 dims)
-- **Generation**: Claude `claude-sonnet-4-20250514` (answers) + `claude-haiku-4-5` (query expansion)
-- **Vector DB**: ChromaDB (local, persistent)
-- **Backend**: FastAPI + Uvicorn
-- **Frontend**: Vanilla HTML/CSS/JS + marked.js (Markdown rendering)
+
+| Component | Technology |
+|-----------|-----------|
+| **Embeddings** | Google Gemini `gemini-embedding-001` (768 dims) |
+| **Generation** | Claude Sonnet 4 (answers) + Claude Haiku 4.5 (query expansion) |
+| **Vector DB** | ChromaDB (local, persistent, 822 chunks) |
+| **Backend** | Python · FastAPI · Uvicorn |
+| **Frontend** | HTML / CSS / JS · marked.js (Markdown) |
+| **Hosting** | Render (free tier) |
 
 ## Knowledge Base Sources
 
@@ -50,13 +92,20 @@ All data comes from **official Webb Schools sources only**:
 
 ### Data Pipeline
 
-```
-webb.org ──scraper.py──▶ data/scraped/*.json ──build_index.py──▶ chroma_db/
-PDFs ──────pdf_loader.py─▶ data/scraped/*.json ─────────────────▶ (same index)
+```mermaid
+flowchart LR
+    W["webb.org<br/>61 pages"] -->|scraper.py| J["data/scraped/<br/>*.json"]
+    P["PDFs<br/>Handbook · Catalog"] -->|pdf_loader.py| J
+    J -->|"build_index.py<br/><sub>chunk → embed → store</sub>"| C[("ChromaDB<br/>822 chunks")]
+
+    style W fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
+    style P fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
+    style J fill:#fef3c7,stroke:#d97706,color:#92400e
+    style C fill:#dbeafe,stroke:#2563eb,color:#1e40af
 ```
 
-- **822 chunks** total in the vector index
-- Chunk size: 1200 characters, 250 overlap, paragraph-aware splitting
+- **822 chunks** in the vector index
+- Chunk size: 1,200 chars with 250 overlap, paragraph-aware splitting
 - Embedding: Gemini `gemini-embedding-001` (768 dimensions)
 
 ## Project Structure
