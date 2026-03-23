@@ -242,9 +242,11 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 
 ### 4.4 Topic Supplements & Keyword Triggers
 
-These are hardcoded pattern-to-query mappings that ensure cross-section policy content is always retrieved. Without them, a question about "overnight passes" would miss CBO (discipline section) and extended passes (adjacent section).
+> **Important limitation:** These are **hardcoded** pattern-to-query mappings, NOT a general solution. They were created to fix specific cross-section retrieval failures discovered during testing — primarily the "overnight pass" question that needed to pull CBO from the discipline section. **Only 4 topics are currently covered.** Questions about other cross-referenced policies (e.g., "What accommodations are available for students with disabilities?" pulling content from both the academic and residential sections) may still miss related content.
 
-**Current topic coverage:**
+**What they do:** When a user question matches a known topic pattern, the system injects additional search queries and scans raw documents for specific terms. This bridges gaps that pure semantic search cannot cover — for example, "overnight pass" and "Campus Beautification Opportunity" are semantically unrelated, but CBO directly affects pass eligibility.
+
+**Current topic coverage (only 4 topics):**
 
 | Topic Pattern | Supplemental Queries Added | Keyword Terms Searched |
 |---------------|---------------------------|----------------------|
@@ -252,6 +254,30 @@ These are hardcoded pattern-to-query mappings that ensure cross-section policy c
 | discipline, honor, violation, etc. | 3 queries (Honor Code, probation, CBO) | Campus Beautification Opportunity, Honor Code, campusing |
 | admission, apply, tuition, etc. | 3 queries (requirements, financial aid, costs) | — |
 | college, university, guidance, etc. | 4 queries (counselor, a-g requirements, FAFSA, transcript) | — |
+
+**Known gaps (topics NOT yet covered):**
+
+- Health/medical policies cross-referencing with dorm rules
+- Technology policies cross-referencing with discipline consequences
+- Athletics eligibility cross-referencing with academic requirements
+- Financial aid cross-referencing with enrollment conditions
+- Any new cross-references introduced in future handbook editions
+
+**How to discover new gaps:** Run the test suite (`python tests/run_tests.py`), look for low-scoring answers, and check if the missing content exists in a different section of the handbook. If so, add a new entry to `TOPIC_SUPPLEMENTS` and `KEYWORD_TRIGGERS`.
+
+**Why hardcoding is fragile:**
+
+1. If the handbook changes terminology (e.g., "CBO" is renamed), the triggers silently stop working
+2. New cross-section relationships in future handbooks won't be caught automatically
+3. Adding coverage for every possible cross-reference is impractical — the handbook has dozens of interconnected policies
+
+**Future improvement paths:**
+
+| Approach | How it works | Trade-off |
+|----------|-------------|-----------|
+| **Two-pass retrieval with LLM** | After initial retrieval, ask Haiku: "What related policies should also be consulted for this question?" Then do a second retrieval round. | +1-2s latency, +$0.001/query, but automatically discovers cross-references |
+| **Chunk tagging at index time** | Tag each chunk with topic labels (discipline, residential, academic, etc.) during indexing. At query time, retrieve by topic in addition to semantic search. | Requires index rebuild, but no runtime cost |
+| **Knowledge graph** | Build a graph of policy relationships (e.g., CBO → affects → pass eligibility). Traverse the graph at query time. | Most robust, but significant development effort |
 
 ### 4.5 Answer Generation
 
