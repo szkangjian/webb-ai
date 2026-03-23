@@ -39,6 +39,22 @@ const TRANSLATIONS = {
     error: "申し訳ありません、エラーが発生しました。もう一度お試しください。",
     rateLimit: "リクエストが多すぎます。しばらくお待ちください。",
   },
+  vi: {
+    tagline: "Hỏi bất cứ điều gì về The Webb Schools",
+    placeholder: "Nhập câu hỏi của bạn...",
+    welcome: "Xin chào! Tôi là trợ lý AI của Webb. Tôi có thể trả lời các câu hỏi về đời sống ký túc xá, học tập, câu lạc bộ, tuyển sinh và nhiều hơn nữa. Tôi có thể giúp gì cho bạn?",
+    sources: "Nguồn:",
+    error: "Xin lỗi, đã xảy ra lỗi. Vui lòng thử lại.",
+    rateLimit: "Quá nhiều yêu cầu. Vui lòng đợi một chút.",
+  },
+  th: {
+    tagline: "ถามอะไรก็ได้เกี่ยวกับ The Webb Schools",
+    placeholder: "พิมพ์คำถามของคุณ...",
+    welcome: "สวัสดีค่ะ! ฉันคือผู้ช่วย AI ของ Webb ฉันสามารถตอบคำถามเกี่ยวกับชีวิตในโรงเรียน การเรียน ชมรม การรับสมัคร และอื่นๆ มีอะไรให้ช่วยไหมคะ?",
+    sources: "แหล่งที่มา:",
+    error: "ขออภัย เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+    rateLimit: "คำขอมากเกินไป กรุณารอสักครู่",
+  },
 };
 
 let currentLang = "en";
