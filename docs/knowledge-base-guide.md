@@ -220,7 +220,27 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 | Keyword fallback score | **0.6** (fixed) | Lower than semantic results (~0.7-0.9) so they rank below direct matches but still appear |
 | Keyword snippet radius | **±200/+400 chars** | Enough to capture a full rule with its context |
 
-### 4.3 Topic Supplements & Keyword Triggers
+### 4.3 Why We Do NOT Use Reranking
+
+> **Warning for future developers:** Adding a reranker (e.g., Cohere Rerank, cross-encoder models) may seem like an obvious improvement, but it would likely **hurt** answer quality in this project. Read this section before making changes.
+
+**Reranking** is a technique where, after initial retrieval, a cross-encoder model re-scores and reorders the candidate chunks to push the most relevant ones to the top.
+
+**Why it is unnecessary here:**
+
+1. **Small corpus** — With only 943 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
+
+2. **Multi-query already provides soft reranking** — When the same chunk is retrieved by multiple expanded queries, we keep its highest score. This naturally promotes the most broadly relevant chunks.
+
+3. **Keyword fallback chunks would be harmed** — This is the critical risk. Our system uses keyword fallback to guarantee inclusion of cross-section policy content (e.g., CBO, extended passes, campusing). These chunks have low semantic similarity scores (fixed at 0.6) because they come from unrelated sections of the handbook. A reranker would likely score them low and push them out, **breaking the cross-section policy coverage that we worked hard to build**.
+
+4. **Added latency** — A reranking API call adds 1-2 seconds per query, increasing an already 15s response time.
+
+5. **Added cost and complexity** — Requires a new API key (Cohere) or model dependency, with minimal benefit for our scale.
+
+**When to reconsider:** If the knowledge base grows to 10,000+ chunks (e.g., by adding full news archives, individual course pages, or multiple years of handbooks), retrieval quality may degrade and reranking could become valuable. At that point, ensure keyword fallback chunks are excluded from reranking (passed through directly).
+
+### 4.4 Topic Supplements & Keyword Triggers
 
 These are hardcoded pattern-to-query mappings that ensure cross-section policy content is always retrieved. Without them, a question about "overnight passes" would miss CBO (discipline section) and extended passes (adjacent section).
 
@@ -233,7 +253,7 @@ These are hardcoded pattern-to-query mappings that ensure cross-section policy c
 | admission, apply, tuition, etc. | 3 queries (requirements, financial aid, costs) | — |
 | college, university, guidance, etc. | 4 queries (counselor, a-g requirements, FAFSA, transcript) | — |
 
-### 4.4 Answer Generation
+### 4.5 Answer Generation
 
 | Parameter | Value | Why |
 |-----------|-------|-----|
