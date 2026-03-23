@@ -1,0 +1,442 @@
+{
+  "results": [
+    {
+      "id": "cl-01",
+      "topic": "Tuition",
+      "languages": {
+        "en": {
+          "expanded": [
+            "Webb Schools tuition cost",
+            "tuition fees boarding day students",
+            "Webb tuition rates annual"
+          ],
+          "chunk_count": 20,
+          "facts_found": [
+            "84,070",
+            "59,790",
+            "financial aid|助学金|경제적 지원|奖学金"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 15.8,
+          "answer_length": 748
+        },
+        "zh": {
+          "expanded": [
+            "Webb Schools tuition costs",
+            "boarding student tuition fees",
+            "day student tuition rates"
+          ],
+          "chunk_count": 20,
+          "facts_found": [
+            "84,070",
+            "59,790",
+            "financial aid|助学金|경제적 지원|奖学金"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 16.2,
+          "answer_length": 369
+        },
+        "ko": {
+          "expanded": [
+            "Webb tuition cost",
+            "Webb Schools tuition fees",
+            "boarding student tuition rates"
+          ],
+          "chunk_count": 14,
+          "facts_found": [
+            "84,070",
+            "59,790"
+          ],
+          "facts_missing": [
+            "financial aid|助学金|경제적 지원|奖学金"
+          ],
+          "fact_coverage": 66.66666666666666,
+          "time": 13.7,
+          "answer_length": 363
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 56.00000000000001,
+        "ko": 36.0
+      }
+    },
+    {
+      "id": "cl-02",
+      "topic": "Overnight Pass",
+      "languages": {
+        "en": {
+          "expanded": [
+            "boarding students overnight pass frequency limits",
+            "weekend pass usage restrictions boarding students",
+            "overnight leave campus policy boarding students"
+          ],
+          "chunk_count": 20,
+          "facts_found": [
+            "12",
+            "overnight|过夜|외박|离校",
+            "pass|通行证|허가"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 26.5,
+          "answer_length": 2139
+        },
+        "zh": {
+          "expanded": [
+            "boarding student overnight pass frequency",
+            "weekend pass allocation per year",
+            "how many overnight passes boarding students"
+          ],
+          "chunk_count": 20,
+          "facts_found": [
+            "12",
+            "overnight|过夜|외박|离校",
+            "pass|通行证|허가"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 33.1,
+          "answer_length": 933
+        },
+        "ko": {
+          "expanded": [
+            "boarding student overnight pass frequency per year",
+            "weekend pass limits annual boarding students",
+            "how many overnight passes allowed yearly"
+          ],
+          "chunk_count": 7,
+          "facts_found": [
+            "12",
+            "overnight|过夜|외박|离校",
+            "pass|通行证|허가"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 21.5,
+          "answer_length": 646
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 95.0,
+        "ko": 36.84210526315789
+      }
+    },
+    {
+      "id": "cl-03",
+      "topic": "Fall Break",
+      "languages": {
+        "en": {
+          "expanded": [
+            "fall break 2026 dates calendar",
+            "reach break pass fall 2026",
+            "academic calendar fall break 2026"
+          ],
+          "chunk_count": 9,
+          "facts_found": [
+            "october|十月|10月",
+            "2026"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 11.2,
+          "answer_length": 571
+        },
+        "zh": {
+          "expanded": [
+            "fall break 2026 dates",
+            "autumn vacation schedule 2026",
+            "reach break pass 2026 fall"
+          ],
+          "chunk_count": 9,
+          "facts_found": [
+            "october|十月|10月",
+            "2026"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 14.0,
+          "answer_length": 298
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 100.0
+      }
+    },
+    {
+      "id": "cl-04",
+      "topic": "Laptop Requirements",
+      "languages": {
+        "en": {
+          "expanded": [
+            "laptop requirements Webb Schools",
+            "computer specifications students",
+            "technology requirements academic programs"
+          ],
+          "chunk_count": 9,
+          "facts_found": [
+            "13",
+            "i5",
+            "8gb|8GB"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 15.4,
+          "answer_length": 1631
+        },
+        "zh": {
+          "expanded": [
+            "computer requirements Webb Schools",
+            "laptop specifications students",
+            "technology requirements boarding students"
+          ],
+          "chunk_count": 10,
+          "facts_found": [
+            "13",
+            "i5",
+            "8gb|8GB"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 16.6,
+          "answer_length": 625
+        },
+        "vi": {
+          "expanded": [
+            "laptop requirements Webb Schools",
+            "technology specifications students Webb",
+            "computer recommendations boarding students"
+          ],
+          "chunk_count": 8,
+          "facts_found": [
+            "13",
+            "i5",
+            "8gb|8GB"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 18.4,
+          "answer_length": 1303
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 72.72727272727273,
+        "vi": 88.88888888888889
+      }
+    },
+    {
+      "id": "cl-05",
+      "topic": "AP Courses",
+      "languages": {
+        "en": {
+          "expanded": [
+            "AP courses offered",
+            "Advanced Placement classes Webb",
+            "AP program curriculum"
+          ],
+          "chunk_count": 10,
+          "facts_found": [
+            "advanced studies|高级研究|高级课程",
+            "discontinued|取消|不再提供|停止"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 17.6,
+          "answer_length": 1379
+        },
+        "zh": {
+          "expanded": [
+            "AP courses Webb Schools",
+            "Advanced Placement classes offered",
+            "AP program academic curriculum"
+          ],
+          "chunk_count": 12,
+          "facts_found": [
+            "advanced studies|高级研究|高级课程",
+            "discontinued|取消|不再提供|停止"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 15.8,
+          "answer_length": 453
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 53.84615384615385
+      }
+    },
+    {
+      "id": "cl-06",
+      "topic": "Colloquial Chinese",
+      "languages": {
+        "en": {
+          "expanded": [
+            "overnight pass weekend permission",
+            "community weekends mandatory campus",
+            "boarding student weekend pass approval"
+          ],
+          "chunk_count": 10,
+          "facts_found": [
+            "pass|通行证|许可",
+            "weekend|周末"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 20.1,
+          "answer_length": 2487
+        },
+        "zh": {
+          "expanded": [
+            "Weekend Pass permission leave campus",
+            "boarding student overnight pass approval",
+            "Community Weekends mandatory on-campus"
+          ],
+          "chunk_count": 12,
+          "facts_found": [
+            "pass|通行证|许可",
+            "weekend|周末"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 22.4,
+          "answer_length": 757
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 57.14285714285714
+      }
+    },
+    {
+      "id": "cl-07",
+      "topic": "Honor Code",
+      "languages": {
+        "en": {
+          "expanded": [
+            "Honor Code Webb Schools",
+            "academic integrity honor system",
+            "student conduct honor expectations"
+          ],
+          "chunk_count": 23,
+          "facts_found": [
+            "honor|荣誉|名誉",
+            "code|守则|規定|准则"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 35.5,
+          "answer_length": 5151
+        },
+        "zh": {
+          "expanded": [
+            "Webb honor code",
+            "Webb Schools honor system rules",
+            "academic integrity honor code Webb"
+          ],
+          "chunk_count": 20,
+          "facts_found": [
+            "honor|荣誉|名誉",
+            "code|守则|規定|准则"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 33.4,
+          "answer_length": 1230
+        },
+        "ja": {
+          "expanded": [
+            "Webb Schools honor code system",
+            "academic integrity honor policy Webb",
+            "student honor code regulations Webb"
+          ],
+          "chunk_count": 17,
+          "facts_found": [
+            "honor|荣誉|名誉",
+            "code|守则|規定|准则"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 32.0,
+          "answer_length": 1340
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 72.0,
+        "ja": 29.03225806451613
+      }
+    },
+    {
+      "id": "cl-08",
+      "topic": "Drug Policy",
+      "languages": {
+        "en": {
+          "expanded": [
+            "drug alcohol policy Webb Schools",
+            "substance use consequences disciplinary action",
+            "alcohol drugs campus rules boarding students"
+          ],
+          "chunk_count": 19,
+          "facts_found": [
+            "drug|药物|毒品",
+            "alcohol|酒精|酒"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 18.6,
+          "answer_length": 1713
+        },
+        "zh": {
+          "expanded": [
+            "drug alcohol policy Webb Schools",
+            "substance abuse rules boarding students",
+            "disciplinary consequences drugs alcohol campus"
+          ],
+          "chunk_count": 16,
+          "facts_found": [
+            "drug|药物|毒品",
+            "alcohol|酒精|酒"
+          ],
+          "facts_missing": [],
+          "fact_coverage": 100.0,
+          "time": 22.6,
+          "answer_length": 661
+        }
+      },
+      "en_vs_other_chunk_overlap": {
+        "zh": 61.904761904761905
+      }
+    }
+  ],
+  "coverages": {
+    "en": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "zh": [
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0,
+      100.0
+    ],
+    "ko": [
+      66.66666666666666,
+      100.0
+    ],
+    "vi": [
+      100.0
+    ],
+    "ja": [
+      100.0
+    ]
+  }
+}

@@ -44,11 +44,12 @@ Guidelines:
 
 def expand_query(question):
     """
-    Use Claude Haiku to generate multiple English search queries from the user's question.
-    This catches related content that uses different terminology (e.g. 'Extended Pass', 'CBO').
+    Use Claude Sonnet to generate 3 English search queries from the user's question.
+    Kept to 3 (not 5) so the original question's multilingual embedding results
+    aren't drowned out by translated queries.
     """
     response = claude.messages.create(
-        model="claude-haiku-4-5",
+        model="claude-sonnet-4-20250514",
         max_tokens=256,
         system="""You generate search queries for The Webb Schools knowledge base.
 Webb Schools uses these specific terms in their documents:
@@ -61,7 +62,7 @@ Webb Schools uses these specific terms in their documents:
 - Dorm Head: dormitory supervisor who approves passes
 - Day student / Boarding student: day vs residential students
 
-Output ONLY a JSON array of 5 short English search phrases covering different aspects of the question, including relevant Webb-specific terms where applicable. No explanation.""",
+Output ONLY a JSON array of 3 short English search phrases covering different aspects of the question, including relevant Webb-specific terms where applicable. No explanation.""",
         messages=[{"role": "user", "content": f"Question: {question}"}],
     )
     text = response.content[0].text.strip()
@@ -71,7 +72,7 @@ Output ONLY a JSON array of 5 short English search phrases covering different as
     if match:
         try:
             queries = json.loads(match.group())
-            return [q.strip() for q in queries if isinstance(q, str)][:5]
+            return [q.strip() for q in queries if isinstance(q, str)][:3]
         except Exception:
             pass
     # Fallback: return original question
@@ -197,13 +198,15 @@ def retrieve_multi(question, top_k_per_query=TOP_K_PER_QUERY, max_chunks=MAX_CHU
     collection = chroma_client.get_collection(COLLECTION_NAME)
 
     # Original + LLM-expanded + topic supplements
-    queries = [question] + expand_query(question) + get_supplemental_queries(question)
+    expanded = expand_query(question)
+    queries = [question] + expanded + get_supplemental_queries(question)
     # Keyword fallback chunks (cross-section content like CBO)
     keyword_results = keyword_chunks(question)
 
     seen_texts = {}  # text → best chunk dict
 
-    for query in queries:
+    for i, query in enumerate(queries):
+        is_original = (i == 0)  # first query is the user's original question
         embedding = get_embedding(query)
         results = collection.query(
             query_embeddings=[embedding],
@@ -216,6 +219,10 @@ def retrieve_multi(question, top_k_per_query=TOP_K_PER_QUERY, max_chunks=MAX_CHU
             results["distances"][0],
         ):
             score = round(1 - dist, 3)
+            # Boost original question results: the multilingual embedding
+            # directly captures user intent without translation loss
+            if is_original:
+                score = min(round(score + 0.05, 3), 1.0)
             # Keep the highest score if this chunk appears in multiple queries
             if doc not in seen_texts or seen_texts[doc]["score"] < score:
                 seen_texts[doc] = {

@@ -10,7 +10,7 @@
 Raw Sources                 Intermediate              Vector Index
 ─────────────               ────────────              ────────────
 webb.org (69 pages)  ──►  data/scraped/*.json  ──►  ChromaDB
-  via scraper.py              (plain text)          943 chunks
+  via scraper.py              (plain text)          776 chunks
                                                     768-dim vectors
 PDFs (7 files)       ──►  data/scraped/*.json  ──►  (same index)
   via pdf_loader.py           (plain text)
@@ -140,7 +140,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 
 | Metric | Value |
 |--------|-------|
-| Total chunks | 943 |
+| Total chunks | 776 |
 | Avg chunk length | ~900 chars |
 | Sources | 77 JSON documents (69 web + 8 PDF) |
 
@@ -162,7 +162,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 | Quality (MTEB) | ~63 | ~64 |
 | Cost | Free tier: 1,500 req/day | $0.13 per million tokens |
 | Multilingual | Native | Good |
-| Decision | **Selected** — quality difference negligible for 943 chunks; cost is zero |
+| Decision | **Selected** — quality difference negligible for 776 chunks; cost is zero |
 
 ### 3.4 Vector Storage (ChromaDB)
 
@@ -178,7 +178,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 
 - Zero infrastructure (no external DB server)
 - Persistent to disk (survives restarts)
-- 943 chunks fits easily in memory
+- 776 chunks fits easily in memory
 - Deploys to Render free tier (34 MB on disk)
 
 ---
@@ -190,37 +190,89 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 ### 4.1 Multi-Query Expansion
 
 ```
-User Question
+User Question (any language)
      │
-     ▼
-Claude Haiku → 5 English search queries
-     │
-     ▼
-Pattern match → Topic-specific supplemental queries (0-6 extra)
-     │
-     ▼
-All queries (6-12 total) → Gemini embedding → ChromaDB top-5 each
-     │
-     ▼
-Deduplicate by text → Sort by score → Top 20 semantic chunks
-     │
-     ▼
-Keyword fallback → Scan raw JSON for cross-section terms
-     │
-     ▼
-Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
+     ├──────────────────────────────────────┐
+     │                                      │
+     ▼                                      ▼
+Claude Sonnet → 3 English search queries    Original question (as-is)
+     │                                      │
+     ▼                                      ▼
+Pattern match → Topic supplements (0-6)     Gemini embedding (multilingual)
+     │                                      │
+     ▼                                      ▼
+All queries → Gemini embedding → ChromaDB   ChromaDB top-5 (+0.05 score boost)
+     │                                      │
+     └──────────── Merge & Deduplicate ─────┘
+                         │
+                         ▼
+              Sort by score → Top 20 semantic chunks
+                         │
+                         ▼
+              Keyword fallback → cross-section terms
+                         │
+                         ▼
+              20 semantic + keyword chunks → Claude Sonnet
 ```
 
-### 4.2 Key Retrieval Parameters
+### 4.2 Cross-Language Retrieval Design
+
+> **Key insight for future developers:** The knowledge base is in English, but users ask questions in Chinese, Korean, Japanese, Vietnamese, etc. Understanding the two-layer translation problem is critical before modifying the retrieval pipeline.
+
+**The problem — two layers of translation loss:**
+
+When a user asks "Webb的学费是多少？" (Chinese for "How much is Webb's tuition?"), the system must convert this into English search terms. This involves two conversion steps, each of which can lose information:
+
+```
+User: "Webb的学费是多少？"
+   ↓ Layer 1: LLM translation (lossy)
+expand_query() → ["Webb tuition cost", "annual fees", "boarding tuition"]
+   ↓ Layer 2: Embedding (accurate)
+Gemini embedding → vector search → results
+```
+
+Layer 1 (LLM translation) is where drift occurs. For example, the colloquial Chinese "周末能不能出去玩？" ("Can I go out and play on weekends?") might be translated to "weekend recreation" instead of the Webb-specific term "weekend pass".
+
+**The solution — also search with the original question:**
+
+Gemini's embedding model (`gemini-embedding-001`) is **natively multilingual**. It maps "学费" (Chinese) and "tuition" (English) to nearby vectors without any translation. By searching with both the original question AND the English expansions, we get:
+
+1. **Original question search** — leverages multilingual embeddings directly, no translation loss, boosted by +0.05 score
+2. **Expanded English queries** — cover different angles and Webb-specific terminology
+3. **Topic supplements** — guarantee cross-section policy content
+
+**Why 3 expanded queries (not 5):**
+
+With 5 expansions, the original question contributes only 1/6 of search results (5 chunks out of 30). If the English translations drift, they "drown out" the original question's correct results. With 3 expansions, the original question contributes 1/4 of results, giving multilingual embeddings more weight.
+
+**Why Sonnet for expansion (not Haiku):**
+
+Sonnet produces significantly better English search terms from non-English input. Haiku often loses Webb-specific terminology during translation (e.g., translating "过夜假" literally instead of mapping it to "overnight pass").
+
+**Test results (cross-language fact coverage):**
+
+| Language | Fact Coverage | Tests |
+|----------|-------------|-------|
+| English | 100% | 8 |
+| Chinese | 100% | 8 |
+| Korean | 83% | 2 |
+| Japanese | 100% | 1 |
+| Vietnamese | 100% | 1 |
+| **Avg en↔other chunk overlap** | **63%** | |
+
+Test script: `tests/test_cross_language.py` — tests 8 question pairs across languages, measures key fact coverage and chunk overlap with English baseline.
+
+### 4.3 Key Retrieval Parameters
 
 | Parameter | Value | Why |
 |-----------|-------|-----|
-| `TOP_K_PER_QUERY` | **5** | Each of 6-12 queries returns 5 chunks; after dedup usually yields 20-35 unique chunks |
+| `TOP_K_PER_QUERY` | **5** | Each of 4-10 queries returns 5 chunks; after dedup usually yields 15-25 unique chunks |
 | `MAX_CHUNKS` | **20** | Balance between context coverage and token cost. 20 chunks × ~900 chars = ~18,000 chars, well within Sonnet's context window |
+| Original query score boost | **+0.05** | Ensures chunks found via multilingual embedding (no translation loss) rank higher than translated results |
 | Keyword fallback score | **0.6** (fixed) | Lower than semantic results (~0.7-0.9) so they rank below direct matches but still appear |
 | Keyword snippet radius | **±200/+400 chars** | Enough to capture a full rule with its context |
 
-### 4.3 Why We Do NOT Use Reranking
+### 4.4 Why We Do NOT Use Reranking
 
 > **Warning for future developers:** Adding a reranker (e.g., Cohere Rerank, cross-encoder models) may seem like an obvious improvement, but it would likely **hurt** answer quality in this project. Read this section before making changes.
 
@@ -228,7 +280,7 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 
 **Why it is unnecessary here:**
 
-1. **Small corpus** — With only 943 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
+1. **Small corpus** — With only 776 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
 
 2. **Multi-query already provides soft reranking** — When the same chunk is retrieved by multiple expanded queries, we keep its highest score. This naturally promotes the most broadly relevant chunks.
 
@@ -240,7 +292,7 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 
 **When to reconsider:** If the knowledge base grows to 10,000+ chunks (e.g., by adding full news archives, individual course pages, or multiple years of handbooks), retrieval quality may degrade and reranking could become valuable. At that point, ensure keyword fallback chunks are excluded from reranking (passed through directly).
 
-### 4.4 Topic Supplements & Keyword Triggers
+### 4.5 Topic Supplements & Keyword Triggers
 
 > **Important limitation:** These are **hardcoded** pattern-to-query mappings, NOT a general solution. They were created to fix specific cross-section retrieval failures discovered during testing — primarily the "overnight pass" question that needed to pull CBO from the discipline section. **Only 4 topics are currently covered.** Questions about other cross-referenced policies (e.g., "What accommodations are available for students with disabilities?" pulling content from both the academic and residential sections) may still miss related content.
 
@@ -278,14 +330,16 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 | **Two-pass retrieval with LLM** | After initial retrieval, ask **Sonnet** (not Haiku): "What related policies should also be consulted for this question?" Then do a second retrieval round. Sonnet is preferred because identifying cross-section relationships requires stronger reasoning than Haiku can provide. | +1-2s latency, +$0.003/query, but automatically discovers cross-references |
 | **Chunk tagging at index time** | Use an LLM (e.g., Gemini Flash) to automatically tag each chunk with topic labels (discipline, residential, academic, etc.) during indexing. **No manual labeling needed** — the LLM reads each chunk and classifies it. At query time, retrieve by topic in addition to semantic search. | One-time index rebuild (~$0.05 in LLM cost), but zero runtime cost |
 
-### 4.5 Answer Generation
+### 4.6 Answer Generation
 
 | Parameter | Value | Why |
 |-----------|-------|-----|
 | **Model** | `claude-sonnet-4-20250514` | Best quality-to-cost ratio; Haiku was tested but missed cross-referenced policies |
 | **Max tokens** | 1,536 | Enough for detailed answers with formatting |
+| **Temperature** | 0 | Minimizes hallucination; deterministic outputs |
 | **Streaming** | SSE (Server-Sent Events) | User sees text appear in ~1-2s instead of waiting 12-15s |
-| **Query expansion model** | `claude-haiku-4-5` | Only generates search terms; doesn't need strong reasoning |
+| **Query expansion model** | `claude-sonnet-4-20250514` | Sonnet (not Haiku) — better multilingual intent mapping and Webb-specific term recognition |
+| **Expanded queries** | 3 per question | Kept low so original question's multilingual embedding results aren't drowned out |
 | **Chat history** | Last 6 messages | Follow-up question support without excessive token usage |
 
 ---
@@ -350,7 +404,7 @@ rm "data/pdfs/Old Handbook.pdf"
 # 3. Delete the entire ChromaDB index
 rm -rf chroma_db/
 
-# 4. Rebuild from scratch (takes ~10 minutes for 943 chunks)
+# 4. Rebuild from scratch (takes ~10 minutes for 776 chunks)
 python rag/build_index.py
 
 # 5. Verify
@@ -387,12 +441,12 @@ When you discover a new cross-section policy gap (e.g., a question about Topic A
 
 | Component | Usage | Monthly Cost (est.) |
 |-----------|-------|-------------------|
-| Gemini Embeddings | Index build only (~943 calls) | Free (well within free tier) |
-| Gemini Embeddings | Query time (~12 calls/question) | Free |
-| Claude Haiku (query expansion) | 1 call/question | ~$0.50 for 500 questions |
+| Gemini Embeddings | Index build only (~776 calls) | Free (well within free tier) |
+| Gemini Embeddings | Query time (~8 calls/question) | Free |
+| Claude Sonnet (query expansion) | 1 call/question | ~$1.50 for 500 questions |
 | Claude Sonnet (answer generation) | 1 call/question | ~$2.00 for 500 questions |
 | Render hosting | 1 web service | Free (750 hrs/month) |
-| **Total** | 500 questions/month | **~$2.50/month** |
+| **Total** | 500 questions/month | **~$3.50/month** |
 
 ---
 
@@ -419,7 +473,9 @@ webb-ai/
 │   ├── app.js
 │   └── style.css
 └── tests/
-    ├── test_questions.json  # 48 test questions
-    ├── run_tests.py         # Keyword + LLM scoring
-    └── test_results.md      # Latest results
+    ├── test_questions.json       # 48 test questions
+    ├── run_tests.py              # Keyword + LLM scoring
+    ├── test_cross_language.py    # Cross-language retrieval consistency test
+    ├── test_results.md           # Latest results
+    └── cross_language_results.json  # Latest cross-language results
 ```
