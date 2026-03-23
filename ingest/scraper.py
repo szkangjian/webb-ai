@@ -15,7 +15,6 @@ BASE_URL = "https://www.webb.org"
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "data", "scraped")
 
 # Complete URL list from webb.org/page/view-our-sitemap
-# Excludes: /giving (donations), /about/employment (jobs), admin pages
 ALL_URLS = [
     # Home
     "/",
@@ -41,6 +40,7 @@ ALL_URLS = [
     "/about/news/press-releases",
     "/about/directory",
     "/about/publications",
+    "/about/employment",
     # Academics
     "/academics",
     "/academics/core-program-grades-9-and-10",
@@ -76,6 +76,14 @@ ALL_URLS = [
     "/summer",
     "/summer/program-tracks",
     "/summer/program-brochure",
+    # Giving
+    "/giving",
+    "/giving/ways-of-giving",
+    "/giving/the-webb-fund",
+    "/giving/legacy-hall-of-fame",
+    "/giving/thompson-and-vivian-webb-society",
+    "/giving/endowed-funds",
+    "/giving/advancement-team",
     # Alf Museum
     "/alf-museum",
     # Alumni
@@ -87,7 +95,7 @@ ALL_URLS = [
     "/alumni/alumni-athletes",
     # Acceptances
     "/acceptances",
-    # Privacy policy (useful for the chatbot to reference)
+    # Privacy policy
     "/privacy-policy",
 ]
 
