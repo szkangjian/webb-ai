@@ -365,6 +365,7 @@ def answer(question, chat_history=None):
     return {
         "answer": response.content[0].text,
         "sources": sources,
+        "context": context,
     }
 
 

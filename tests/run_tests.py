@@ -44,7 +44,12 @@ def detect_judge_model():
     return LLM_JUDGE_MODEL
 
 
-JUDGE_PROMPT = """You are evaluating answers from a school AI chatbot for The Webb Schools (a private boarding school in Claremont, CA).
+JUDGE_PROMPT = """You are evaluating answers from a RAG-based AI chatbot for The Webb Schools (a private boarding school in Claremont, CA).
+
+IMPORTANT: The chatbot answers questions using ONLY the context retrieved from its knowledge base (shown below). Judge accuracy based on whether the answer is FAITHFUL to this context — NOT based on your own knowledge. If the answer correctly reflects what the context says, it is accurate, even if you believe the information is outdated or different from what you know.
+
+Retrieved context (this is what the chatbot had access to):
+{context}
 
 Question: {question}
 
@@ -53,16 +58,16 @@ Answer to evaluate:
 
 Score the answer on these 5 dimensions (1-5 each):
 
-1. **Accuracy**: Is the information factually correct based on what a Webb Schools chatbot should know? (5=fully accurate, 1=major errors/hallucinations)
-2. **Completeness**: Does it cover the key aspects of the question? (5=comprehensive, 1=barely addresses the question)
+1. **Accuracy (faithfulness)**: Does the answer faithfully reflect the retrieved context? Are there claims NOT supported by the context? (5=fully faithful, 1=fabricates information not in context)
+2. **Completeness**: Does the answer cover the key information available in the context? (5=uses context well, 1=misses important context)
 3. **Relevance**: Does it stay on topic and answer what was asked? (5=perfectly relevant, 1=off-topic)
 4. **Clarity**: Is it well-organized and easy to understand? (5=excellent formatting, 1=confusing)
 5. **Helpfulness**: Would a student/parent find this answer useful? (5=very helpful, 1=unhelpful)
 
 Also note any issues:
-- Hallucinations (made-up information)
-- Missing critical information
-- Inappropriate tone or content
+- Hallucinations: claims NOT found in the retrieved context
+- Missing: important information IN the context that the answer skipped
+- DO NOT penalize for information that IS in the context, even if you think it might be outdated
 
 Respond in this exact JSON format (no markdown, no code fences):
 {{"accuracy": N, "completeness": N, "relevance": N, "clarity": N, "helpfulness": N, "overall": N, "issues": "brief note or empty string"}}
@@ -71,13 +76,15 @@ where "overall" is your holistic score 1-5 (not just the average — weight accu
 """
 
 
-def llm_score(question, answer_text):
-    """Score an answer using Gemini LLM judge."""
+def llm_score(question, answer_text, context=""):
+    """Score an answer using Gemini LLM judge with retrieved context."""
     import re
     response = None
     raw_text = ""
     try:
-        prompt = JUDGE_PROMPT.format(question=question, answer=answer_text)
+        # Truncate context to avoid token limits (keep first 8000 chars)
+        ctx = context[:8000] if context else "(no context available)"
+        prompt = JUDGE_PROMPT.format(question=question, answer=answer_text, context=ctx)
         response = gemini_client.models.generate_content(
             model=judge_model,
             contents=prompt,
@@ -241,8 +248,8 @@ def run_tests():
                 # Keyword scoring
                 coverage, found_topics, missing_topics = keyword_score(ans, q.get("expect_topics", []))
 
-                # LLM scoring
-                llm_scores = llm_score(q["question"], ans)
+                # LLM scoring (with retrieved context for faithful evaluation)
+                llm_scores = llm_score(q["question"], ans, resp.get("context", ""))
 
                 result = {
                     "id": q["id"],
