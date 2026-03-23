@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Webb AI Assistant</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-top">
+        <div class="logo">
+          <span class="logo-text">Webb <span class="logo-accent">AI</span></span>
+        </div>
+        <select id="lang-select" title="Language">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="es">Español</option>
+          <option value="ko">한국어</option>
+          <option value="ja">日本語</option>
+        </select>
+      </div>
+      <p class="tagline" id="tagline">Ask anything about The Webb Schools</p>
+    </header>
+
+    <div class="chat-window" id="chat-window">
+      <div class="message assistant" id="welcome-msg">
+        <div class="bubble">
+          Hi! I'm the Webb AI Assistant. I can answer questions about campus life, academics, clubs, admissions, and more. How can I help you?
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <textarea
+        id="input"
+        placeholder="Ask a question..."
+        rows="1"
+        maxlength="1000"
+      ></textarea>
+      <button id="send-btn" onclick="sendMessage()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+
+    <footer>
+      <p>Answers are based on Webb Schools official documents. For urgent matters, contact <a href="https://www.webb.org" target="_blank">webb.org</a> directly.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

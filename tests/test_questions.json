@@ -1,0 +1,308 @@
+{
+  "description": "WebbGPT 测试问题集 — 覆盖美国私立寄宿高中常见咨询场景",
+  "version": "2.0",
+  "note": "expect_topics uses '|' to separate bilingual synonyms (any match counts)",
+  "categories": [
+    {
+      "category": "admission",
+      "name": "招生与申请",
+      "questions": [
+        {
+          "id": "adm-01",
+          "question": "How do I apply to Webb Schools?",
+          "language": "en",
+          "expect_topics": ["application|apply|申请", "deadline|截止", "requirements|require|条件"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "adm-02",
+          "question": "Webb的学费是多少？有没有奖学金或助学金？",
+          "language": "zh",
+          "expect_topics": ["tuition|学费", "financial aid|助学金|经济援助", "scholarship|奖学金"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "adm-03",
+          "question": "What are the admission requirements for international students?",
+          "language": "en",
+          "expect_topics": ["international|国际", "TOEFL|SSAT|test|考试", "application|apply|申请"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "adm-04",
+          "question": "申请截止日期是什么时候？可以参观校园吗？",
+          "language": "zh",
+          "expect_topics": ["deadline|截止|日期", "campus tour|参观|visit|访问", "open house|开放日|admission event|招生活动"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "category": "academics",
+      "name": "学术与课程",
+      "questions": [
+        {
+          "id": "acad-01",
+          "question": "What courses are available for 11th and 12th graders?",
+          "language": "en",
+          "expect_topics": ["elective|选修", "AP|Advanced Placement", "11th|12th|upper|高年级"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "acad-02",
+          "question": "Webb有哪些AP课程？",
+          "language": "zh",
+          "expect_topics": ["AP", "course|课程"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "acad-03",
+          "question": "Can you explain the core program for grades 9 and 10?",
+          "language": "en",
+          "expect_topics": ["core|核心", "9|10|ninth|tenth|freshman|sophomore", "interdisciplinary|跨学科|humanities|人文"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "acad-04",
+          "question": "Webb的科学课程有什么特别之处？和Alf Museum有什么关系？",
+          "language": "zh",
+          "expect_topics": ["science|科学", "Alf Museum|阿尔夫|博物馆", "paleontology|古生物|fossil|化石", "hands-on|实践|动手|field|实地"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "acad-05",
+          "question": "What world languages does Webb offer?",
+          "language": "en",
+          "expect_topics": ["Chinese|中文", "Spanish|西班牙", "French|法语", "Latin|拉丁"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "category": "student_life",
+      "name": "学生生活",
+      "questions": [
+        {
+          "id": "life-01",
+          "question": "寄宿生每年有几次离校回家过夜的机会？",
+          "language": "zh",
+          "expect_topics": ["12|十二", "overnight|过夜|通行证", "community weekend|社区周末", "extended pass|延长|特殊活动", "CBO|美化", "campusing|禁足|校园限制"],
+          "difficulty": "hard"
+        },
+        {
+          "id": "life-02",
+          "question": "What is dorm life like at Webb?",
+          "language": "en",
+          "expect_topics": ["dorm|宿舍|dormitory", "roommate|室友|room", "dorm head|宿舍长|faculty", "boarding|寄宿"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "life-03",
+          "question": "周末寄宿生可以做什么？",
+          "language": "zh",
+          "expect_topics": ["weekend|周末", "six-hour|六小时|6小时|日间", "trip|出行|活动", "on-campus|校内|校园"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "life-04",
+          "question": "What clubs and extracurricular activities are available?",
+          "language": "en",
+          "expect_topics": ["club|社团|俱乐部", "affinity|亲和", "organization|student|学生"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "life-05",
+          "question": "Webb的伙食怎么样？有什么饮食安排？",
+          "language": "zh",
+          "expect_topics": ["dining|餐厅|伙食|用餐", "meal|餐|早餐|午餐|晚餐", "food|食物|菜单|料理"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "life-06",
+          "question": "What health and wellness resources does Webb provide?",
+          "language": "en",
+          "expect_topics": ["health center|Health Center|健康中心", "counseling|counselor|辅导", "wellness|健康", "nurse|护士|medical|医"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "category": "policies_discipline",
+      "name": "校规与纪律",
+      "questions": [
+        {
+          "id": "pol-01",
+          "question": "What is Webb's Honor Code?",
+          "language": "en",
+          "expect_topics": ["honor code|Honor Code|荣誉", "academic integrity|学术诚信", "consequences|后果|处分"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "pol-02",
+          "question": "违反校规会有什么后果？什么是CBO？",
+          "language": "zh",
+          "expect_topics": ["discipline|纪律|处分|违反", "CBO|Campus Beautification|美化", "campus restriction|禁足|campusing|校园限制", "probation|留校察看|suspension|停学"],
+          "difficulty": "hard"
+        },
+        {
+          "id": "pol-03",
+          "question": "What is the school's policy on cell phones and electronics?",
+          "language": "en",
+          "expect_topics": ["phone|手机|cell", "electronics|电子设备|device", "rules|policy|规定|政策"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "pol-04",
+          "question": "学校对药物和酒精的政策是什么？",
+          "language": "zh",
+          "expect_topics": ["drug|药物|毒品", "alcohol|酒精|饮酒", "substance|物质|违禁", "consequences|后果|处分|处罚"],
+          "difficulty": "hard"
+        },
+        {
+          "id": "pol-05",
+          "question": "What happens if a student misses Saturday check-in?",
+          "language": "en",
+          "expect_topics": ["check-in|签到|报到", "unexcused|absence|缺席", "consequence|后果|处罚", "7-10|work|工作|任务"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "category": "college_guidance",
+      "name": "升学指导",
+      "questions": [
+        {
+          "id": "col-01",
+          "question": "Webb的大学升学指导是怎样的？",
+          "language": "zh",
+          "expect_topics": ["college guidance|升学指导|大学指导", "counselor|顾问|指导|主任", "process|流程|过程|步骤"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "col-02",
+          "question": "What colleges have Webb graduates been accepted to?",
+          "language": "en",
+          "expect_topics": ["acceptance|录取|admit", "university|college|大学", "Ivy|Harvard|Stanford|Yale|常春藤"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "col-03",
+          "question": "How does Webb help students with college applications?",
+          "language": "en",
+          "expect_topics": ["recommendation|推荐信", "transcript|成绩单", "application|support|申请|帮助"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "category": "athletics",
+      "name": "体育运动",
+      "questions": [
+        {
+          "id": "ath-01",
+          "question": "What sports does Webb offer?",
+          "language": "en",
+          "expect_topics": ["sport|运动|team|球队", "varsity|校队", "season|赛季|fall|winter|spring"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "ath-02",
+          "question": "Webb有没有CIF冠军的历史？",
+          "language": "zh",
+          "expect_topics": ["CIF|championship|冠军", "athletic|体育|运动|成就"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "ath-03",
+          "question": "Are student athletes required to do anything special before college visits?",
+          "language": "en",
+          "expect_topics": ["CIF|Scholastic Federation", "college visit|大学访问", "athletic|eligibility|运动员|资格"],
+          "difficulty": "hard"
+        }
+      ]
+    },
+    {
+      "category": "logistics",
+      "name": "交通与后勤",
+      "questions": [
+        {
+          "id": "log-01",
+          "question": "学校在哪里？离洛杉矶机场多远？",
+          "language": "zh",
+          "expect_topics": ["Claremont|克莱蒙特", "location|位置|地址|地理", "LAX|机场|airport", "transportation|交通|驾车|开车"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "log-02",
+          "question": "What are the transportation options for getting to Webb?",
+          "language": "en",
+          "expect_topics": ["travel|旅行|交通", "airport|机场|LAX|Ontario", "shuttle|bus|巴士", "rideshare|Uber|Lyft"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "log-03",
+          "question": "假期怎么离校？需要签什么表格？",
+          "language": "zh",
+          "expect_topics": ["Reach|reach|签出|sign out", "break|假期|假", "vacation|离校|离开", "transportation|交通|permission|许可"],
+          "difficulty": "hard"
+        }
+      ]
+    },
+    {
+      "category": "edge_cases",
+      "name": "边界测试",
+      "questions": [
+        {
+          "id": "edge-01",
+          "question": "Who is the principal of Webb Schools?",
+          "language": "en",
+          "expect_topics": ["head of school|Head of School|校长", "leadership|领导"],
+          "difficulty": "basic",
+          "note": "Tests if chatbot knows school uses 'Head of School' not 'principal'"
+        },
+        {
+          "id": "edge-02",
+          "question": "Can you help me with my homework?",
+          "language": "en",
+          "expect_topics": [],
+          "difficulty": "edge",
+          "note": "Should politely redirect — chatbot is for school info only"
+        },
+        {
+          "id": "edge-03",
+          "question": "Tell me about Harvard's admission requirements",
+          "language": "en",
+          "expect_topics": [],
+          "difficulty": "edge",
+          "note": "Out of scope — should redirect to Webb-related info"
+        },
+        {
+          "id": "edge-04",
+          "question": "我想投诉一个老师",
+          "language": "zh",
+          "expect_topics": ["contact|联系|电话", "626-3587|webb.org"],
+          "difficulty": "edge",
+          "note": "Sensitive topic — should direct to contact school staff"
+        },
+        {
+          "id": "edge-05",
+          "question": "Webb是男校还是女校？两个学校有什么区别？",
+          "language": "zh",
+          "expect_topics": ["Webb School of California|WSC|加州韦伯", "Vivian Webb|薇薇安", "coordinate|协调|两所|双校"],
+          "difficulty": "medium",
+          "note": "Tests knowledge of Webb's unique two-school structure"
+        },
+        {
+          "id": "edge-06",
+          "question": "What is the Alf Museum?",
+          "language": "en",
+          "expect_topics": ["Raymond M. Alf|Alf Museum|阿尔夫", "paleontology|fossil|古生物|化石", "museum|博物馆", "on-campus|campus|校园内"],
+          "difficulty": "basic",
+          "note": "Unique Webb feature — only high school in US with an accredited museum"
+        }
+      ]
+    }
+  ],
+  "total_questions": 35,
+  "usage": "python tests/run_tests.py"
+}
