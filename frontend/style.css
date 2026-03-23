@@ -5,14 +5,16 @@
 }
 
 :root {
-  --primary: #1a3a5c;
-  --accent: #c8a951;
+  --primary: #172450;
+  --primary-light: #038ed1;
+  --accent: #dfb025;
+  --accent-bright: #fed607;
   --bg: #f5f5f5;
   --white: #ffffff;
   --text: #2c2c2c;
   --text-light: #666;
   --border: #ddd;
-  --bubble-user: #1a3a5c;
+  --bubble-user: #172450;
   --bubble-assistant: #ffffff;
   --shadow: 0 2px 12px rgba(0,0,0,0.08);
 }
@@ -218,7 +220,7 @@ header {
 }
 
 #send-btn:hover {
-  background: #24507a;
+  background: #038ed1;
 }
 
 #send-btn:disabled {
@@ -301,7 +303,7 @@ footer a {
 }
 
 .message.assistant .bubble a {
-  color: var(--primary);
+  color: var(--primary-light);
   text-decoration: underline;
 }
 
