@@ -275,9 +275,8 @@ Merge: 20 semantic + guaranteed keyword chunks → Send to Claude Sonnet
 
 | Approach | How it works | Trade-off |
 |----------|-------------|-----------|
-| **Two-pass retrieval with LLM** | After initial retrieval, ask Haiku: "What related policies should also be consulted for this question?" Then do a second retrieval round. | +1-2s latency, +$0.001/query, but automatically discovers cross-references |
-| **Chunk tagging at index time** | Tag each chunk with topic labels (discipline, residential, academic, etc.) during indexing. At query time, retrieve by topic in addition to semantic search. | Requires index rebuild, but no runtime cost |
-| **Knowledge graph** | Build a graph of policy relationships (e.g., CBO → affects → pass eligibility). Traverse the graph at query time. | Most robust, but significant development effort |
+| **Two-pass retrieval with LLM** | After initial retrieval, ask **Sonnet** (not Haiku): "What related policies should also be consulted for this question?" Then do a second retrieval round. Sonnet is preferred because identifying cross-section relationships requires stronger reasoning than Haiku can provide. | +1-2s latency, +$0.003/query, but automatically discovers cross-references |
+| **Chunk tagging at index time** | Use an LLM (e.g., Gemini Flash) to automatically tag each chunk with topic labels (discipline, residential, academic, etc.) during indexing. **No manual labeling needed** — the LLM reads each chunk and classifies it. At query time, retrieve by topic in addition to semantic search. | One-time index rebuild (~$0.05 in LLM cost), but zero runtime cost |
 
 ### 4.5 Answer Generation
 
@@ -420,7 +419,7 @@ webb-ai/
 │   ├── app.js
 │   └── style.css
 └── tests/
-    ├── test_questions.json  # 46 test questions
+    ├── test_questions.json  # 48 test questions
     ├── run_tests.py         # Keyword + LLM scoring
     └── test_results.md      # Latest results
 ```

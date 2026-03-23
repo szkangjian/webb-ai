@@ -33,7 +33,7 @@ def detect_judge_model():
     try:
         models = [m.name for m in gemini_client.models.list()]
         # Prefer newest first
-        for candidate in ["gemini-3.1-flash-lite", "gemini-3-flash", "gemini-3.0-flash", "gemini-2.5-flash"]:
+        for candidate in ["gemini-2.5-flash", "gemini-2.0-flash"]:
             for m in models:
                 if candidate in m:
                     print(f"  LLM Judge model: {m}")
@@ -65,7 +65,7 @@ Also note any issues:
 - Inappropriate tone or content
 
 Respond in this exact JSON format (no markdown, no code fences):
-{"accuracy": N, "completeness": N, "relevance": N, "clarity": N, "helpfulness": N, "overall": N, "issues": "brief note or empty string"}
+{{"accuracy": N, "completeness": N, "relevance": N, "clarity": N, "helpfulness": N, "overall": N, "issues": "brief note or empty string"}}
 
 where "overall" is your holistic score 1-5 (not just the average — weight accuracy and helpfulness more).
 """
@@ -73,19 +73,33 @@ where "overall" is your holistic score 1-5 (not just the average — weight accu
 
 def llm_score(question, answer_text):
     """Score an answer using Gemini LLM judge."""
+    import re
+    response = None
+    raw_text = ""
     try:
         prompt = JUDGE_PROMPT.format(question=question, answer=answer_text)
         response = gemini_client.models.generate_content(
             model=judge_model,
             contents=prompt,
         )
-        text = response.text.strip()
+        # Extract text from response (handle Gemini 2.5 thinking mode)
+        raw_text = ""
+        try:
+            raw_text = response.text.strip() if response.text else ""
+        except Exception:
+            pass
+        if not raw_text and response.candidates:
+            for part in response.candidates[0].content.parts:
+                if not getattr(part, 'thought', False) and part.text:
+                    raw_text = part.text.strip()
+                    break
+
+        text = raw_text
         # Strip markdown code fences
         if "```" in text:
             text = text.replace("```json", "").replace("```", "").strip()
         # Find the JSON object
-        import re
-        match = re.search(r'\{[\s\S]*\}', text)
+        match = re.search(r'\{[^{}]*\}', text)
         if match:
             text = match.group()
         scores = json.loads(text)
@@ -98,11 +112,7 @@ def llm_score(question, answer_text):
             scores["issues"] = ""
         return scores
     except Exception as e:
-        try:
-            raw = response.text[:300] if response else "no response"
-        except Exception:
-            raw = "could not read response"
-        print(f"    ⚠️  LLM scoring failed: {e} | raw: {raw}")
+        print(f"    ⚠️  LLM scoring failed: {e} | raw: {raw_text[:200]}")
         return None
 
 
