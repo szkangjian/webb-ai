@@ -249,6 +249,107 @@
       ]
     },
     {
+      "category": "technology",
+      "name": "Technology",
+      "questions": [
+        {
+          "id": "tech-01",
+          "question": "What kind of laptop do I need for Webb?",
+          "language": "en",
+          "expect_topics": ["laptop|电脑|笔记本", "i5|M1|processor", "8GB|RAM|内存", "13|display|屏幕"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "tech-02",
+          "question": "学校WiFi怎么连？打印怎么弄？",
+          "language": "zh",
+          "expect_topics": ["WiFi|wifi|网络|wireless", "print|打印"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "tech-03",
+          "question": "What is the school's acceptable use policy for technology?",
+          "language": "en",
+          "expect_topics": ["acceptable use|AUP|可接受使用", "network|网络", "responsible|责任|privilege|特权"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "category": "travel_dates",
+      "name": "Travel Dates & Calendar",
+      "questions": [
+        {
+          "id": "cal-01",
+          "question": "When is fall break 2026?",
+          "language": "en",
+          "expect_topics": ["October|十月|10月", "2026", "fall break|秋假"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "cal-02",
+          "question": "新生什么时候搬进宿舍？",
+          "language": "zh",
+          "expect_topics": ["August|8月|八月", "orientation|迎新|入学", "move-in|搬入|入住"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "cal-03",
+          "question": "When is Thanksgiving break and when do students return?",
+          "language": "en",
+          "expect_topics": ["Thanksgiving|感恩节", "November|十一月|11月", "return|返校"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "cal-04",
+          "question": "春假是什么时候？",
+          "language": "zh",
+          "expect_topics": ["March|3月|三月|spring break|春假"],
+          "difficulty": "basic"
+        }
+      ]
+    },
+    {
+      "category": "international",
+      "name": "International Students",
+      "questions": [
+        {
+          "id": "intl-01",
+          "question": "What do international students need to know about traveling during breaks?",
+          "language": "en",
+          "expect_topics": ["I-20|visa|签证|SEVIS", "travel|旅行", "studyinthestates|DHS|ice.gov"],
+          "difficulty": "medium"
+        },
+        {
+          "id": "intl-02",
+          "question": "国际学生F1签证旅行需要注意什么？",
+          "language": "zh",
+          "expect_topics": ["F-1|F1|visa|签证", "I-20|SEVIS", "travel|旅行|出入境"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
+      "category": "giving",
+      "name": "Giving & Support",
+      "questions": [
+        {
+          "id": "give-01",
+          "question": "How can I make a donation to Webb Schools?",
+          "language": "en",
+          "expect_topics": ["give|gift|donate|donation|捐赠", "Webb Fund|基金", "ways|方式"],
+          "difficulty": "basic"
+        },
+        {
+          "id": "give-02",
+          "question": "Webb有哪些捐赠基金？",
+          "language": "zh",
+          "expect_topics": ["endowed|捐赠基金|基金", "fund|funds|基金", "scholarship|奖学金"],
+          "difficulty": "medium"
+        }
+      ]
+    },
+    {
       "category": "edge_cases",
       "name": "Edge Cases",
       "questions": [
@@ -299,10 +400,26 @@
           "expect_topics": ["Raymond M. Alf|Alf Museum|阿尔夫", "paleontology|fossil|古生物|化石", "museum|博物馆", "on-campus|campus|校园内"],
           "difficulty": "basic",
           "note": "Unique Webb feature — only high school in US with an accredited museum"
+        },
+        {
+          "id": "edge-07",
+          "question": "Who is on the varsity basketball team?",
+          "language": "en",
+          "expect_topics": ["webb.org/athletics|athletics"],
+          "difficulty": "edge",
+          "note": "Should redirect to webb.org/athletics for current roster"
+        },
+        {
+          "id": "edge-08",
+          "question": "下周有什么活动？",
+          "language": "zh",
+          "expect_topics": ["webb.org/calendar|calendar|日历"],
+          "difficulty": "edge",
+          "note": "Should redirect to webb.org/calendar for current events"
         }
       ]
     }
   ],
-  "total_questions": 35,
+  "total_questions": 46,
   "usage": "python tests/run_tests.py"
 }
