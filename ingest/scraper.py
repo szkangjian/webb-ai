@@ -110,7 +110,61 @@ def clean_text(soup):
         tag.decompose()
     text = soup.get_text(separator="\n")
     lines = [line.strip() for line in text.splitlines() if line.strip()]
-    return "\n".join(lines)
+    content = "\n".join(lines)
+
+    # Remove boilerplate that Blackbaud CMS injects as text (not in semantic tags)
+    # 1. Navigation menu block (appears at start of every page)
+    import re
+    # Cut everything before the cookie notice or main content
+    for marker in [
+        "This website uses cookies",
+        "Skip to Content",
+    ]:
+        idx = content.find(marker)
+        if idx > 0:
+            # Find the end of the cookie/nav block
+            end = content.find("\n", idx + len(marker))
+            if end > 0:
+                content = content[end:].strip()
+            break
+
+    # 2. Remove remaining nav-like lines at the top (menu, arrow, section names)
+    nav_keywords = {
+        "menu", "arrow", "myWebb", "X",
+        "Admission", "About", "Academics", "Student Life", "Athletics",
+        "Summer", "Giving", "Alf Museum", "Alumni",
+    }
+    cleaned_lines = []
+    in_nav = True
+    for line in content.split("\n"):
+        stripped = line.strip()
+        if in_nav:
+            # Skip lines that are just nav keywords or very short nav items
+            if stripped in nav_keywords or stripped == "Search":
+                continue
+            # Stop skipping once we hit a substantial line
+            if len(stripped) > 60 or (len(stripped) > 20 and stripped not in nav_keywords):
+                in_nav = False
+                cleaned_lines.append(line)
+        else:
+            cleaned_lines.append(line)
+    content = "\n".join(cleaned_lines)
+
+    # 3. Remove footer boilerplate at the end
+    footer_markers = [
+        "Discover Webb",
+        "Contact Us\n",
+        "©",
+        "Privacy Policy\n",
+        "The Webb Schools\n1175 West Baseline",
+    ]
+    for marker in footer_markers:
+        idx = content.find(marker)
+        if idx > 0 and idx > len(content) * 0.5:  # only if in bottom 50%
+            content = content[:idx].strip()
+            break
+
+    return content
 
 
 def scrape_page(url):
