@@ -1,11 +1,11 @@
 {
-  "description": "WebbGPT 测试问题集 — 覆盖美国私立寄宿高中常见咨询场景",
+  "description": "WebbGPT test suite — covers common inquiry scenarios for a US private boarding high school",
   "version": "2.0",
   "note": "expect_topics uses '|' to separate bilingual synonyms (any match counts)",
   "categories": [
     {
       "category": "admission",
-      "name": "招生与申请",
+      "name": "Admission",
       "questions": [
         {
           "id": "adm-01",
@@ -39,7 +39,7 @@
     },
     {
       "category": "academics",
-      "name": "学术与课程",
+      "name": "Academics",
       "questions": [
         {
           "id": "acad-01",
@@ -80,7 +80,7 @@
     },
     {
       "category": "student_life",
-      "name": "学生生活",
+      "name": "Student Life",
       "questions": [
         {
           "id": "life-01",
@@ -128,7 +128,7 @@
     },
     {
       "category": "policies_discipline",
-      "name": "校规与纪律",
+      "name": "Policies & Discipline",
       "questions": [
         {
           "id": "pol-01",
@@ -169,7 +169,7 @@
     },
     {
       "category": "college_guidance",
-      "name": "升学指导",
+      "name": "College Guidance",
       "questions": [
         {
           "id": "col-01",
@@ -196,7 +196,7 @@
     },
     {
       "category": "athletics",
-      "name": "体育运动",
+      "name": "Athletics",
       "questions": [
         {
           "id": "ath-01",
@@ -223,7 +223,7 @@
     },
     {
       "category": "logistics",
-      "name": "交通与后勤",
+      "name": "Logistics",
       "questions": [
         {
           "id": "log-01",
@@ -250,7 +250,7 @@
     },
     {
       "category": "edge_cases",
-      "name": "边界测试",
+      "name": "Edge Cases",
       "questions": [
         {
           "id": "edge-01",

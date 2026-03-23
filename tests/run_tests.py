@@ -1,6 +1,7 @@
 """
-WebbGPT 批量测试脚本
-读取 test_questions.json，逐个调用 RAG 回答，输出结果到 test_results.json
+WebbGPT automated test runner.
+Reads test_questions.json, runs each through the RAG pipeline,
+and saves results to test_results.json and test_results.md.
 """
 
 import json
