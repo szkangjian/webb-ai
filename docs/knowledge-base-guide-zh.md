@@ -9,8 +9,8 @@
 ```
 原始数据源                  中间格式                   向量索引
 ──────────                  ────────                   ────────
-webb.org (111 页)    ──►  data/scraped/*.json  ──►  ChromaDB
-  通过 scraper.py           (纯文本)                  935 个 chunks
+webb.org (117 页)    ──►  data/scraped/*.json  ──►  ChromaDB
+  通过 scraper.py           (纯文本)                  1,115 个 chunks
                                                       768 维向量
 PDF 文件 (9 个)      ──►  data/scraped/*.json  ──►  (同一索引)
   通过 pdf_loader.py        (纯文本)
@@ -30,9 +30,9 @@ PDF 文件 (9 个)      ──►  data/scraped/*.json  ──►  (同一索引
 | 项目 | 详情 |
 |------|------|
 | **脚本** | `ingest/scraper.py` |
-| **方法** | `requests` + `BeautifulSoup`（仅限静态 HTML） |
+| **方法** | `requests` + `BeautifulSoup`（静态 HTML）；`Playwright` 抓取 JS 渲染页面（`scrape_curriculum.py`） |
 | **页面列表** | 硬编码自 `webb.org/view-our-sitemap` |
-| **已抓取** | 111 个页面（69 静态页 + 33 运动队页 + 9 其他页面） |
+| **已抓取** | 117 个页面（69 静态页 + 33 运动队页 + 9 其他页面 + 6 个课程详情页通过 Playwright） |
 | **输出** | `data/scraped/web_*.json` |
 | **局限** | 无法抓取 JavaScript 动态渲染的内容（AJAX 球队名单、日历事件、课程详情页） |
 
@@ -54,7 +54,7 @@ PDF 文件 (9 个)      ──►  data/scraped/*.json  ──►  (同一索引
 
 | 内容 | 原因 | 替代方案 |
 |------|------|---------|
-| 课程详情页 (`/page/curriculum-detail?...`) | Blackbaud CMS 返回 HTTP 403 | Course Catalog PDF 已覆盖所有课程 |
+| ~~课程详情页~~ | **已抓取** — 通过 `ingest/scrape_curriculum.py`（Playwright） | 6 个学科、143 门课程、69 位教师含邮箱 |
 | 日历事件 | JavaScript 动态渲染（Blackbaud CMS） | Travel Dates PDF 覆盖关键日期；聊天机器人引导至 webb.org/calendar |
 | 运动队名单（学生姓名） | JavaScript 动态渲染 + 学生隐私 (FERPA) | 教练姓名和赛程已抓取；聊天机器人引导至 webb.org/athletics 查看名单 |
 | 新闻文章 | 动态页面，时效性强 | Q&A 价值低 |
@@ -141,7 +141,7 @@ scraper.py 和 pdf_loader.py 都输出相同的 JSON 格式：
 |------|---|
 | 总分块数 | 935 |
 | 平均分块长度 | ~900 字符 |
-| 数据源 | 120 个 JSON 文档（111 网页 + 9 PDF） |
+| 数据源 | 126 个 JSON 文档（117 网页 + 9 PDF） |
 
 ### 3.3 嵌入向量生成
 
@@ -454,7 +454,8 @@ python tests/run_tests.py
 ```
 webb-ai/
 ├── ingest/
-│   ├── scraper.py          # 抓取 webb.org 页面 → JSON
+│   ├── scraper.py          # 抓取 webb.org 页面 → JSON（静态 HTML）
+│   ├── scrape_curriculum.py # 抓取课程详情页 → JSON（Playwright，JS 渲染）
 │   └── pdf_loader.py       # 解析 PDF → JSON
 ├── data/
 │   ├── pdfs/               # 原始 PDF 源文件（gitignore）

@@ -9,8 +9,8 @@
 ```
 Raw Sources                 Intermediate              Vector Index
 ─────────────               ────────────              ────────────
-webb.org (111 pages) ──►  data/scraped/*.json  ──►  ChromaDB
-  via scraper.py              (plain text)          935 chunks
+webb.org (117 pages) ──►  data/scraped/*.json  ──►  ChromaDB
+  via scraper.py              (plain text)          1,115 chunks
                                                     768-dim vectors
 PDFs (9 files)       ──►  data/scraped/*.json  ──►  (same index)
   via pdf_loader.py           (plain text)
@@ -30,9 +30,9 @@ The pipeline has three stages:
 | Item | Detail |
 |------|--------|
 | **Script** | `ingest/scraper.py` |
-| **Method** | `requests` + `BeautifulSoup` (static HTML only) |
+| **Method** | `requests` + `BeautifulSoup` (static HTML); `Playwright` for JS-rendered pages (`scrape_curriculum.py`) |
 | **Source list** | Hardcoded from `webb.org/view-our-sitemap` |
-| **Pages scraped** | 111 pages (69 static + 33 athletic teams + 9 additional) |
+| **Pages scraped** | 117 pages (69 static + 33 athletic teams + 9 additional + 6 curriculum-detail via Playwright) |
 | **Output** | `data/scraped/web_*.json` |
 | **Limitations** | Cannot scrape JavaScript-rendered content (AJAX team rosters, calendar events, curriculum-detail pages) |
 
@@ -54,7 +54,7 @@ The pipeline has three stages:
 
 | Content | Reason | Workaround |
 |---------|--------|------------|
-| Curriculum-detail pages (`/page/curriculum-detail?...`) | Blackbaud CMS returns HTTP 403 | Course Catalog PDF covers all courses |
+| ~~Curriculum-detail pages~~ | **Now captured** via `ingest/scrape_curriculum.py` (Playwright) | 6 departments, 143 courses, 69 faculty with emails |
 | Calendar events | JavaScript-rendered (Blackbaud CMS) | Travel Dates PDFs cover key dates; chatbot redirects to webb.org/calendar |
 | Athletic team rosters (student names) | JavaScript-rendered + student privacy (FERPA) | Coach names and schedules ARE captured; chatbot redirects to webb.org/athletics for rosters |
 | News articles | Dynamic pages, time-sensitive content | Low Q&A value |
@@ -143,7 +143,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 |--------|-------|
 | Total chunks | 935 |
 | Avg chunk length | ~900 chars |
-| Sources | 120 JSON documents (111 web + 9 PDF) |
+| Sources | 126 JSON documents (117 web + 9 PDF) |
 
 ### 3.3 Embedding Generation
 
@@ -163,7 +163,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 | Quality (MTEB) | ~63 | ~64 |
 | Cost | Free tier: 1,500 req/day | $0.13 per million tokens |
 | Multilingual | Native | Good |
-| Decision | **Selected** — quality difference negligible for 935 chunks; cost is zero |
+| Decision | **Selected** — quality difference negligible for 1,115 chunks; cost is zero |
 
 ### 3.4 Vector Storage (ChromaDB)
 
@@ -179,7 +179,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 
 - Zero infrastructure (no external DB server)
 - Persistent to disk (survives restarts)
-- 935 chunks fits easily in memory
+- 1,115 chunks fits easily in memory
 - Deploys to Render free tier (34 MB on disk)
 
 ---
@@ -281,7 +281,7 @@ Test script: `tests/test_cross_language.py` — tests 8 question pairs across la
 
 **Why it is unnecessary here:**
 
-1. **Small corpus** — With only 935 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
+1. **Small corpus** — With only 1,115 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
 
 2. **Multi-query already provides soft reranking** — When the same chunk is retrieved by multiple expanded queries, we keep its highest score. This naturally promotes the most broadly relevant chunks.
 
@@ -405,7 +405,7 @@ rm "data/pdfs/Old Handbook.pdf"
 # 3. Delete the entire ChromaDB index
 rm -rf chroma_db/
 
-# 4. Rebuild from scratch (takes ~10 minutes for 935 chunks)
+# 4. Rebuild from scratch (takes ~10 minutes for 1,115 chunks)
 python rag/build_index.py
 
 # 5. Verify
@@ -456,7 +456,8 @@ When you discover a new cross-section policy gap (e.g., a question about Topic A
 ```
 webb-ai/
 ├── ingest/
-│   ├── scraper.py          # Fetches webb.org pages → JSON
+│   ├── scraper.py          # Fetches webb.org pages → JSON (static HTML)
+│   ├── scrape_curriculum.py # Fetches curriculum-detail pages → JSON (Playwright, JS-rendered)
 │   └── pdf_loader.py       # Parses PDFs → JSON
 ├── data/
 │   ├── pdfs/               # Raw PDF source files (gitignored)
