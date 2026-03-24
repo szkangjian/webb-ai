@@ -372,12 +372,6 @@ def answer(question, chat_history=None):
             seen_sources.add(label)
             sources.append(label)
 
-    # Add assistant prefill to anchor the response to context
-    messages.append({
-        "role": "assistant",
-        "content": "Based on the provided context:",
-    })
-
     response = claude.messages.create(
         model="claude-sonnet-4-20250514",
         max_tokens=1024,
@@ -481,14 +475,6 @@ def answer_stream(question, chat_history=None):
             sources.append(label)
 
     yield {"type": "sources", "sources": sources}
-
-    # Add assistant prefill to anchor the response to context
-    messages.append({
-        "role": "assistant",
-        "content": "Based on the provided context:",
-    })
-
-    # Prefill is in messages to anchor the model, but don't send it to the user
 
     # Stream the response
     with claude.messages.stream(
