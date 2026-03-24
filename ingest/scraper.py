@@ -97,6 +97,56 @@ ALL_URLS = [
     "/acceptances",
     # Privacy policy
     "/privacy-policy",
+    # --- Pages discovered missing 2026-03-23 ---
+    # Head of School, College Guidance Profile, Faculty Awards, Policies
+    "/from-the-head-of-school",
+    "/college-guidance-profile-202425",
+    "/faculty-awards",
+    "/welcome-back",
+    "/orientation-schedule",
+    "/non-discrimination-policy",
+    "/game-program",
+    # Curriculum detail pages (6 departments)
+    "/curriculum-detail?DepartmentId=27432",   # Humanities
+    "/curriculum-detail?DepartmentId=23778",   # Mathematics & Computer Science
+    "/curriculum-detail?DepartmentId=23779",   # Science
+    "/curriculum-detail?DepartmentId=23780",   # World Languages
+    "/curriculum-detail?DepartmentId=23776",   # Fine Arts
+    "/curriculum-detail?DepartmentId=23860",   # Health & Wellness
+    # Athletic team pages (33 teams)
+    "/athletic-teams?Team=171408",   # Football Varsity
+    "/athletic-teams?Team=171410",   # Cross Country Varsity Boys
+    "/athletic-teams?Team=171411",   # Cross Country Varsity Girls
+    "/athletic-teams?Team=171416",   # Tennis JV Girls
+    "/athletic-teams?Team=171417",   # Tennis Varsity Girls
+    "/athletic-teams?Team=171419",   # Golf Varsity Girls
+    "/athletic-teams?Team=171420",   # Volleyball Frosh Girls
+    "/athletic-teams?Team=171421",   # Volleyball JV Girls
+    "/athletic-teams?Team=171422",   # Volleyball Varsity Girls
+    "/athletic-teams?Team=171423",   # Water Polo JV Boys
+    "/athletic-teams?Team=171424",   # Water Polo Varsity Boys
+    "/athletic-teams?Team=171425",   # Triathlon
+    "/athletic-teams?Team=171426",   # Basketball JV Girls
+    "/athletic-teams?Team=171427",   # Basketball Varsity Girls
+    "/athletic-teams?Team=171429",   # Soccer Varsity Girls
+    "/athletic-teams?Team=171431",   # Water Polo Varsity Girls
+    "/athletic-teams?Team=171432",   # Wrestling
+    "/athletic-teams?Team=171433",   # Basketball Frosh Boys
+    "/athletic-teams?Team=171434",   # Basketball JV Boys
+    "/athletic-teams?Team=171435",   # Basketball Varsity Boys
+    "/athletic-teams?Team=171436",   # Soccer JV Boys
+    "/athletic-teams?Team=171437",   # Soccer Varsity Boys
+    "/athletic-teams?Team=171440",   # Badminton Varsity
+    "/athletic-teams?Team=171445",   # Softball Varsity Girls
+    "/athletic-teams?Team=171446",   # Baseball Varsity Boys
+    "/athletic-teams?Team=171447",   # Golf Varsity Boys
+    "/athletic-teams?Team=171448",   # Tennis JV Boys
+    "/athletic-teams?Team=171449",   # Tennis Varsity Boys
+    "/athletic-teams?Team=171451",   # Volleyball Varsity Boys
+    "/athletic-teams?Team=284199",   # Swimming & Diving Varsity Girls
+    "/athletic-teams?Team=284202",   # Swimming & Diving Varsity Boys
+    "/athletic-teams?Team=312662",   # Track & Field Varsity Girls
+    "/athletic-teams?Team=312663",   # Track & Field Varsity Boys
 ]
 
 HEADERS = {
@@ -187,8 +237,9 @@ def scrape_page(url):
 
 
 def url_to_filename(path):
-    clean = path.strip("/").replace("/", "_") or "home"
-    return f"web_{clean[:80]}.json"
+    # Handle query parameters: /athletic-teams?Team=171408 → athletic-teams_Team-171408
+    clean = path.strip("/").replace("/", "_").replace("?", "_").replace("=", "-") or "home"
+    return f"web_{clean[:100]}.json"
 
 
 def scrape_all():
