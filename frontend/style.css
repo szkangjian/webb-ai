@@ -112,6 +112,7 @@ header {
 
 .message.assistant {
   align-self: flex-start;
+  flex-direction: column;
 }
 
 .bubble {
