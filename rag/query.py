@@ -376,7 +376,7 @@ def answer(question, chat_history=None):
 
     response = claude.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=1024,
+        max_tokens=1280,
         temperature=0,
         system=SYSTEM_PROMPT,
         messages=messages,
@@ -481,7 +481,7 @@ def answer_stream(question, chat_history=None):
     # Stream the response
     with claude.messages.stream(
         model="claude-sonnet-4-20250514",
-        max_tokens=1024,
+        max_tokens=1280,
         temperature=0,
         system=SYSTEM_PROMPT,
         messages=messages,
