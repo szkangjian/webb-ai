@@ -9,10 +9,10 @@
 ```
 Raw Sources                 Intermediate              Vector Index
 ─────────────               ────────────              ────────────
-webb.org (69 pages)  ──►  data/scraped/*.json  ──►  ChromaDB
-  via scraper.py              (plain text)          776 chunks
+webb.org (111 pages) ──►  data/scraped/*.json  ──►  ChromaDB
+  via scraper.py              (plain text)          935 chunks
                                                     768-dim vectors
-PDFs (7 files)       ──►  data/scraped/*.json  ──►  (same index)
+PDFs (9 files)       ──►  data/scraped/*.json  ──►  (same index)
   via pdf_loader.py           (plain text)
 ```
 
@@ -32,7 +32,7 @@ The pipeline has three stages:
 | **Script** | `ingest/scraper.py` |
 | **Method** | `requests` + `BeautifulSoup` (static HTML only) |
 | **Source list** | Hardcoded from `webb.org/view-our-sitemap` |
-| **Pages scraped** | 69 static pages |
+| **Pages scraped** | 111 pages (69 static + 33 athletic teams + 9 additional) |
 | **Output** | `data/scraped/web_*.json` |
 | **Limitations** | Cannot scrape JavaScript-rendered content (AJAX team rosters, calendar events, curriculum-detail pages) |
 
@@ -44,21 +44,21 @@ The pipeline has three stages:
 | About | 8 | Mission, leadership, culture, news, directory |
 | Academics | 13 | Core program, departments, faculty, course catalog, Alf Museum |
 | Student Life | 10 | Dorm life, dining, clubs, health, weekend activities |
-| Athletics | 5 | Sports teams, CIF championships, records |
+| Athletics | 38 | 33 individual team pages (coaches, schedules) + 5 general (CIF, records, summer practices) |
 | Summer | 3 | Program tracks, brochure |
 | Giving | 7 | Ways of giving, Webb Fund, endowed funds |
 | Alumni | 5 | Events, awards, council |
-| Other | 5 | Home, privacy policy, Alf Museum, acceptances |
+| Other | 14 | Home, privacy, acceptances, head of school letter, college guidance profile, faculty awards, orientation, non-discrimination policy, game program |
 
 **What is NOT captured from the website:**
 
 | Content | Reason | Workaround |
 |---------|--------|------------|
-| Curriculum-detail pages (`/page/curriculum-detail?...`) | JavaScript-rendered (AJAX) | Course Catalog PDF covers all courses |
+| Curriculum-detail pages (`/page/curriculum-detail?...`) | Blackbaud CMS returns HTTP 403 | Course Catalog PDF covers all courses |
 | Calendar events | JavaScript-rendered (Blackbaud CMS) | Travel Dates PDFs cover key dates; chatbot redirects to webb.org/calendar |
-| Athletic team rosters | JavaScript-rendered + student privacy (FERPA) | Chatbot redirects to webb.org/athletics |
+| Athletic team rosters (student names) | JavaScript-rendered + student privacy (FERPA) | Coach names and schedules ARE captured; chatbot redirects to webb.org/athletics for rosters |
 | News articles | Dynamic pages, time-sensitive content | Low Q&A value |
-| Faculty individual profiles | No individual URLs; main directory page already captures all 73 faculty |
+| Faculty detailed bios | Meet-our-faculty page only shows name/title/education (no expandable bios) | School-leadership page bios ARE captured |
 
 ### 2.2 PDF Documents
 
@@ -75,6 +75,7 @@ The pipeline has three stages:
 |----------|---------|------|------|------------|
 | `2025-26 Student Handbook Final.pdf` | School policies, discipline, dorm rules, passes, honor code, daily schedule | 209,931 chars | 2025-26 | Critical |
 | `course_catalog_2026-27.pdf` | All course descriptions, prerequisites, graduation requirements | 64,989 chars | 2026-27 | Critical |
+| `2025-2026_college_guidance_brochure-output.pdf` | College guidance profile, SAT scores, graduation requirements, college acceptances | 4,777 chars | 2025-26 | High |
 | `Travel Dates 2026-2027.pdf` | Move-in dates, breaks, departure/arrival times | 2,014 chars | 2026-27 | High |
 | `Travel Dates FY26.pdf` | Same as above for current year | 1,775 chars | 2025-26 | High |
 | `Device Guidelines.pdf` | Laptop specs required for new students | 1,429 chars | 2025 | Medium |
@@ -140,9 +141,9 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 
 | Metric | Value |
 |--------|-------|
-| Total chunks | 776 |
+| Total chunks | 935 |
 | Avg chunk length | ~900 chars |
-| Sources | 77 JSON documents (69 web + 8 PDF) |
+| Sources | 120 JSON documents (111 web + 9 PDF) |
 
 ### 3.3 Embedding Generation
 
@@ -162,7 +163,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 | Quality (MTEB) | ~63 | ~64 |
 | Cost | Free tier: 1,500 req/day | $0.13 per million tokens |
 | Multilingual | Native | Good |
-| Decision | **Selected** — quality difference negligible for 776 chunks; cost is zero |
+| Decision | **Selected** — quality difference negligible for 935 chunks; cost is zero |
 
 ### 3.4 Vector Storage (ChromaDB)
 
@@ -178,7 +179,7 @@ Fixed-length splitting at character position N would cut mid-sentence, breaking 
 
 - Zero infrastructure (no external DB server)
 - Persistent to disk (survives restarts)
-- 776 chunks fits easily in memory
+- 935 chunks fits easily in memory
 - Deploys to Render free tier (34 MB on disk)
 
 ---
@@ -267,7 +268,7 @@ Test script: `tests/test_cross_language.py` — tests 8 question pairs across la
 | Parameter | Value | Why |
 |-----------|-------|-----|
 | `TOP_K_PER_QUERY` | **5** | Each of 4-10 queries returns 5 chunks; after dedup usually yields 15-25 unique chunks |
-| `MAX_CHUNKS` | **20** | Balance between context coverage and token cost. 20 chunks × ~900 chars = ~18,000 chars, well within Sonnet's context window |
+| `MAX_CHUNKS` | **15** | Balance between context coverage and token cost. 15 chunks × ~900 chars = ~13,500 chars, well within Sonnet's context window |
 | Original query score boost | **+0.05** | Ensures chunks found via multilingual embedding (no translation loss) rank higher than translated results |
 | Keyword fallback score | **0.6** (fixed) | Lower than semantic results (~0.7-0.9) so they rank below direct matches but still appear |
 | Keyword snippet radius | **±200/+400 chars** | Enough to capture a full rule with its context |
@@ -280,7 +281,7 @@ Test script: `tests/test_cross_language.py` — tests 8 question pairs across la
 
 **Why it is unnecessary here:**
 
-1. **Small corpus** — With only 776 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
+1. **Small corpus** — With only 935 chunks, retrieval returns 20-35 candidates, and the generation model (Sonnet) reads all 20. There is no need to further narrow them down. Reranking is valuable when selecting 10 chunks from 1,000+ candidates; we don't have that problem.
 
 2. **Multi-query already provides soft reranking** — When the same chunk is retrieved by multiple expanded queries, we keep its highest score. This naturally promotes the most broadly relevant chunks.
 
@@ -335,7 +336,7 @@ Test script: `tests/test_cross_language.py` — tests 8 question pairs across la
 | Parameter | Value | Why |
 |-----------|-------|-----|
 | **Model** | `claude-sonnet-4-20250514` | Best quality-to-cost ratio; Haiku was tested but missed cross-referenced policies |
-| **Max tokens** | 1,536 | Enough for detailed answers with formatting |
+| **Max tokens** | 1,024 | Concise, focused answers reduce hallucination risk |
 | **Temperature** | 0 | Minimizes hallucination; deterministic outputs |
 | **Streaming** | SSE (Server-Sent Events) | User sees text appear in ~1-2s instead of waiting 12-15s |
 | **Query expansion model** | `claude-sonnet-4-20250514` | Sonnet (not Haiku) — better multilingual intent mapping and Webb-specific term recognition |
@@ -404,7 +405,7 @@ rm "data/pdfs/Old Handbook.pdf"
 # 3. Delete the entire ChromaDB index
 rm -rf chroma_db/
 
-# 4. Rebuild from scratch (takes ~10 minutes for 776 chunks)
+# 4. Rebuild from scratch (takes ~10 minutes for 935 chunks)
 python rag/build_index.py
 
 # 5. Verify

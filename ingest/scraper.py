@@ -147,6 +147,9 @@ ALL_URLS = [
     "/athletic-teams?Team=284202",   # Swimming & Diving Varsity Boys
     "/athletic-teams?Team=312662",   # Track & Field Varsity Girls
     "/athletic-teams?Team=312663",   # Track & Field Varsity Boys
+    # Club & affinity group detail pages (full lists)
+    "/page/list-detail?pk=218155&fromId=296635",   # 2025 Clubs (82 clubs)
+    "/page/list-detail?pk=218156&fromId=296635",   # Affinity & DEIB Groups (18 groups)
 ]
 
 HEADERS = {
