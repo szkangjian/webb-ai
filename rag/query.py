@@ -387,7 +387,7 @@ def answer(question, chat_history=None):
     )
 
     return {
-        "answer": "Based on the provided context:" + response.content[0].text,
+        "answer": response.content[0].text,
         "sources": sources,
         "context": context,
     }
@@ -488,8 +488,7 @@ def answer_stream(question, chat_history=None):
         "content": "Based on the provided context:",
     })
 
-    # Send the prefill text first
-    yield {"type": "delta", "text": "Based on the provided context:"}
+    # Prefill is in messages to anchor the model, but don't send it to the user
 
     # Stream the response
     with claude.messages.stream(
