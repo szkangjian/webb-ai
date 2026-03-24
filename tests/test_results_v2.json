@@ -1,0 +1,295 @@
+{
+  "test_time": "2026-03-23 20:15:48",
+  "results": [
+    {
+      "id": "adm-01",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer missed the enrollment decision deadlines (March 27, 2026, for day students and April 10, 2026, for boarding students) which are relevant to the application process timeline."
+    },
+    {
+      "id": "adm-02",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer accurately reflects the tuition and financial aid information. It correctly identifies the tuition figures, the details of the financial aid program, and the application deadlines and method. It also correctly points out the existence of various endowed scholarship funds, although it rephrases the 'Collegiate School Scholarship Fund' as 'Vivian Webb School Scholarship Fund' based on its purpose (supporting Vivian Webb School) rather than its direct name in the context. This is a minor rephrasing rather than a fabrication. It also did not explicitly list every single named scholarship fund but used a general statement to cover the remaining ones. It missed mentioning the in-app support email for Clarity and the quick reference guides/overview documents for financial aid listed in the context, but these are minor omissions given the comprehensive information provided."
+    },
+    {
+      "id": "adm-03",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Significant hallucinations regarding F-1 visa requirements (health insurance, DSO, I-20 details, travel signatures, DSO@webb.org email) and external resource links. These fabricated sections are also largely irrelevant to 'admission requirements' as they pertain to post-admission student life for visa holders."
+    },
+    {
+      "id": "adm-04",
+      "accuracy": 2,
+      "overall": 3,
+      "issues": "Hallucination: The answer lists specific cities (e.g., Atlanta, Las Vegas, Chicago, Hong Kong, Singapore, Thailand) and months (Sept, Oct, Nov 2025) for the nationwide tour. The provided context for Source 7 cuts off before any specific cities or dates are listed (it only shows 'Septe' and then stops). This information is fabricated."
+    },
+    {
+      "id": "acad-01",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Extensive hallucinations in the Humanities sections for both 11th and 12th grade, listing many specific elective courses not supported by the provided context (e.g., 'Hon Economic Thought in the Modern Age', 'AdvSt Faith Narratives of Holy Cities'). Also missed one specific AdvSt Humanities course ('AdvSt Literature & Culture*') and did not enumerate specific science courses (such as Evolutionary Biology, Neuroscience, and various AdvSt Science courses) that were explicitly listed as available in the context, opting instead for general categories."
+    },
+    {
+      "id": "acad-02",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": ""
+    },
+    {
+      "id": "acad-03",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer is highly accurate and well-organized. It faithfully reflects the context. Minor omissions include the program's dynamic nature (adapting curriculum) and the broader support system (advisory programs, dorm heads, peer leaders), and the direct mention of Webb's mission (think, act, lead, and serve) from Source 1, which are relevant to the overall program experience. The specific graduation requirements from Source 5 were also not included, but the question focuses on the 9th and 10th-grade core, so this is less critical. The description of Evolutionary Biology as including \"field studies\" is a slight inference, as the context only says \"combines labora\" (cut off), but it's not a clear hallucination."
+    },
+    {
+      "id": "acad-04",
+      "accuracy": 3,
+      "overall": 3,
+      "issues": "Hallucinations: Claims about 'creative thinking and problem-solving, rather than rote memorization,' 'beyond AP level' for advanced studies, 'collaboration with Claremont Colleges professors,' and 'providing college-level learning opportunities' are not explicitly supported by the context. Missing: Important details like the museum's founding story (Raymond Alf, Bill Webb, peccary skull), the collection size (195,000 specimens), and the discovery of a baby T-Rex by a Webb student were not included."
+    },
+    {
+      "id": "acad-05",
+      "accuracy": 4,
+      "overall": 4,
+      "issues": "The answer states that students need 3 years of world language study 'of the same language' to graduate. While this is a common practice, the provided context (Source 6) only states '3 years' for world languages graduation requirements, without explicitly specifying 'of the same language.' This addition is not explicitly supported by the text."
+    },
+    {
+      "id": "life-01",
+      "accuracy": 3,
+      "overall": 3,
+      "issues": "The answer accurately states the annual limit of 12 overnight passes. However, it hallucinates specific policy details. It incorrectly links violations of 'six-hour pass rules' to 'revocation of off-campus privileges' and mandatory campus stay; the context mentions campus restriction for failure to return from an *overnight* pass and campusing for CBOs, but not this specific link. It also invents a specific pass type called '\u5ef6\u957f\u901a\u884c\u8bc1' (Extended Pass) with application details (to dorm head by Wednesday night for special events), which is not mentioned in the context. The context only advises planning for religious holidays/family functions within the 12-weekend limit and mentions that late returns (past 10:30 p.m.) may require an overnight pass with approvals."
+    },
+    {
+      "id": "life-02",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinated specific lights-out times for freshmen, sophomores, and juniors. Hallucinated that the 9:00 PM check-in is a 'final face-to-face check-in Sunday-Thursday'. Hallucinated the availability of microwaves in common areas and specific rules for cooking appliances with enclosed heating elements."
+    },
+    {
+      "id": "life-03",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: The answer fabricates significant information not present in the context, including a detailed 'overnight pass' policy (12 per year, specific departure/return times), 'community weekend' pass restrictions, specific consequences for 6-hour pass violations (privileges revoked, hourly reporting), 'extended pass' policy details (request to dorm head by Wednesday), a 'Saturday check-in' time (11:30 AM - 6:30 PM), and a 'weekend lights out' time (1 AM). Missing: The answer misses specific rules for freshmen regarding passes (must leave in groups of two or more, must return to campus on weekends). It also omits that larger events are found on the SIS Webb All-Schools Calendar, and other community rule violations like failed room checks or missing chapel."
+    },
+    {
+      "id": "life-04",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: The answer lists many specific sports teams (Football, Golf (girls), Soccer, Tennis Clinic, Baseball, Golf (boys), Softball, Swimming & Diving, Tennis, Track, Volleyball, Water Polo, Wrestling) under Fall, Winter, and Spring activities that are not explicitly present in the provided context for those specific seasons. Source 7 only lists 'Cross Country' for Fall, 'Basketball' for Winter, and 'Badminton' for Spring in its athletic table. Missing: The 'Webb Archive' activity (though not currently offered) is mentioned in the context but omitted from the answer."
+    },
+    {
+      "id": "life-05",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer accurately reflects the context. Minor omissions include: cell phones not allowed in the dining hall, day students needing to notify by 10 AM if attending community dinner, specific mention of dress code for community dinner, and details about dessert options (cookies, cake, churros, soft serve one day a week). Also, while it mentions snacks are available all day, it could explicitly state bagels, bread, cream cheese, and PB&J are also available all day as per Source 1. However, these are minor details compared to the comprehensive information provided."
+    },
+    {
+      "id": "life-06",
+      "accuracy": 3,
+      "overall": 3,
+      "issues": "Hallucinations: The answer states the Pediatric Nurse Practitioner can perform clinical assessments, formulate treatment plans, prescribe medications, order diagnostic tests, and provide specialist referrals; however, the context only mentions the existence of a PNP without detailing these specific capabilities. It also states the Athletic Trainer specializes in prevention, assessment, treatment, and rehabilitation of sports-related injuries, which is an inference not explicitly detailed in the context. The claims 'Seasonal vaccines offered on campus' and 'Most medical care provided at no additional cost' are not supported by the context; in fact, the context explicitly states that Webb does not cover the cost of outside medical care and parents bear the cost of outside services, directly contradicting the latter point. Missing: The answer misses that counseling services are 'short-term' (Source 3). It also omits that students can be seen by appointment or as a walk-in (Source 2), details about parents/guardians bearing the cost of outside services (Source 3), the requirement for families to notify the Health and Wellness Center of health insurance changes and to update medical information (Source 5), and the process for accessing on-call nurses/counselors after hours (Source 2)."
+    },
+    {
+      "id": "pol-01",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "The answer hallucinates a significant section on 'Disciplinary Consequences for Honor Code Violations,' including specific penalties like CBO, Campus Restriction, Probation, Suspension, and Expulsion. This information is not present in the provided context. It also misses two bullet points from Source 4 under 'Members of the Webb community' and doesn't incorporate details about academic integrity or technology use as aspects of the Honor Code from Sources 3 and 6."
+    },
+    {
+      "id": "pol-02",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "The answer fabricates several pieces of information not found in the retrieved context: 1. A consequence for failing to return to campus by 5:30 p.m. on Sunday. 2. The concept of 'Community Weekends' where passes are restricted. 3. 'Suspension' as a disciplinary consequence. It also misses some explicit consequences mentioned in the context, such as consequences for unexcused absences (served during lunch), consequences for missing Saturday check-in ('7-10'), and consequences for failing to sign out/in."
+    },
+    {
+      "id": "pol-03",
+      "accuracy": 4,
+      "overall": 3,
+      "issues": "Hallucination: The answer states, \"Dorm heads may require students to turn in cell phones during study hours to support quiet study atmosphere.\" The context (Source 5) only says, \"Dorm heads reserve the right to prohibit other electrical appliances at their discretion,\" which is a broader statement and does not specify cell phones, study hours, or the reason of a quiet study atmosphere. \nMissing: The answer misses significant information about general electronics policy, including specific laptop requirements (Source 7), the dual-platform nature of the school (Source 2), the need for permissions for school-required apps (Source 2), student responsibility for device maintenance (Source 3), detailed internet usage policies (e.g., content filter, P2P, hotspots, slowing down academic activities - Sources 3, 6), and the school's disclaimer regarding file storage (Source 6)."
+    },
+    {
+      "id": "pol-04",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The entire answer regarding major violations for alcohol, illegal drugs, nicotine, consequences (probation, suspension, expulsion), investigation procedures (searches, interviews, drug/alcohol screening), and details of probation/suspension is completely fabricated and not present in the retrieved context. Missing: The answer completely failed to include the actual medication policies available in the context, such as rules for bringing/storing prescription and non-prescription medication, controlled substances, and requirements for U.S.-based providers (from Sources 5 and 6)."
+    },
+    {
+      "id": "pol-05",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucination: The section describing 'CBO (Campus Beautification Opportunity)' is entirely fabricated and not present in the provided context. Mischaracterization: 'Extended Pass' is described as a disciplinary consequence, which is inaccurate; it is an accommodation. Missing: The context mentions 'half-day campus restriction' for late returns/check-ins, and 'serious disciplinary consequence' for sign-out failures, which were not included in the list of general consequences provided by the chatbot, though the chatbot's list included a hallucinated one instead."
+    },
+    {
+      "id": "col-01",
+      "accuracy": 1,
+      "overall": 2,
+      "issues": "Hallucinations: The detailed bio for Hector Martinez (working 26 years, 36 years experience) is not in the context. The entire section about 'Associate Dean (\u526f\u4e3b\u4efb): Rhemi Abrams-Fuller' including her bio is not present in the context. The '\u5927\u5b66\u8bbf\u95ee\u653f\u7b56' (University Visit Policy) section is entirely fabricated and not found in the context. Missing: The answer does not mention the 'class of 2026 acceptances' or the '2025-26 College Guidance Brochure' specifically, nor the 'Acceptances to Date (1/13/2026)' with specific counts as seen in Source 4. Some details from Adriana Flores's bio (previous roles, degree) are also omitted."
+    },
+    {
+      "id": "col-02",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: The answer incorrectly states that Yale University and MIT are among the 'Top Colleges Webb Students Matriculate To Most'; these institutions are not listed in the provided context for matriculation. Missing: The 'Recent Acceptances Include' list is significantly incomplete, omitting numerous colleges explicitly mentioned in the context under 'Acceptances to Date (1/13/2026)' in Sources 1 and 3. The answer also only provides examples for the 'Top Colleges Webb Students Matriculate To Most' instead of the full lists available in the context."
+    },
+    {
+      "id": "col-03",
+      "accuracy": 2,
+      "overall": 3,
+      "issues": "Hallucinations: The answer invents details about Hector Martinez's years of experience (26 years at Webb, 36 years total experience), invents an entirely new staff member named Rhemi Abrams-Fuller and her experience (Associate Dean of College Guidance, 15 years in selective college admissions), invents 'group sessions' (only one-on-one is mentioned), invents 'College pass request forms' and 'approved visits', and adds 'Yale' to the list of top colleges students matriculate to, which is not in the context. While it correctly pulls many pieces of information, the fabrications are significant."
+    },
+    {
+      "id": "ath-01",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The answer hallucinates numerous sports not present in the context, including Girls Volleyball, Boys Water Polo, Basketball, Girls Water Polo, Wrestling, Boys Volleyball, and Basketball Clinic. It also hallucinates the requirement for students to participate in interscholastic sports/dance show and a website URL (webb.org/athletics). The categorization of 'Cross Country' and 'Functional Fitness' as 'Year-Round Options' is not fully supported by the context. Missing: The answer failed to mention the 'Baseball Clinic (not currently offered)' and 'Softball Clinic (not currently offered)' which were explicitly stated in the context. It also missed an unnamed sport mentioned in Source 4 that requires shin guards and cleats and plays 15-20 games. It places Badminton in Fall, but the context does not specify its season."
+    },
+    {
+      "id": "ath-02",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "The answer hallucinates almost all of the specific CIF championship details (sports, years, divisions, individual names like Rylie Brick, Rita Forte, Nicole Samson, Adrian Hui, and specific years for team championships). The only accurate details from the context are that Webb has 'three California Interscholastic Federation titles' and was named 'CIF-SS Academic Team Champions for 2024-25'."
+    },
+    {
+      "id": "ath-03",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The answer fabricates almost all of the 'Standard College Visit Requirements' and many of the 'Important Restrictions' listed. The context only briefly mentions avoiding conflicts with athletic contests and that unauthorized visits are unexcused absences. Specific approvals (parents, deans, director of studies), justifications, teacher contacts, assignment submissions, academic standing, specific forms, community weekend policies, limitations during critical academic periods, and a maximum of three school days for visits are all made up and not present in the provided context. This makes the answer highly misleading and unreliable."
+    },
+    {
+      "id": "log-01",
+      "accuracy": 2,
+      "overall": 3,
+      "issues": "Hallucination: The context does not state that Webb Schools is '\u8ddd\u79bb\u6d1b\u6749\u77f6\u5e02\u4e2d\u5fc3\u4ee5\u4e1c\u7ea640\u82f1\u91cc' (approximately 40 miles east of downtown Los Angeles). Missing information: The answer mentions that the school provides transportation but omits other options like renting a car, Uber/Lyft, or airport shuttle vans. It also omits the specific contact (Mr. Silva at nsilva@webb.org) for transportation questions and the detail about a signup link being emailed in mid-July."
+    },
+    {
+      "id": "log-02",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: The answer fabricates significant portions of information, including rules about day students driving, restrictions on younger students using rideshare services, taxi rules (parental permission, time/distance limits, freshmen restrictions), and specific drop-off/pick-up locations and restrictions (front circle, Webb Canyon Road). These are not mentioned anywhere in the provided context. Missing: While it covers the main transportation categories, it misses some specific details about LAX (an hour away, connects globally) and ONT (direct flights from specific cities) from Source 3, though these are minor given the question."
+    },
+    {
+      "id": "log-03",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: Specific details about 'Campus Restriction/Campusing' (violation of six-hour pass leading to it, hourly check-ins), 'Community Weekends' and associated 'overnight pass' restrictions, and 'Extended Pass' application process are not present in the context. Irrelevance: A significant portion of the 'Related Policy Restrictions' section (CBO, Campus Restriction/Campusing details, Community Weekends, Extended Pass) is not directly related to vacation departure procedures or forms. Missing: The answer did not explicitly include '2025-26 Student Handbook Final' as instructed by Source 1's directive."
+    },
+    {
+      "id": "tech-01",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer is extremely comprehensive regarding laptop specifications and included software. A very minor detail missed from the context is that if students choose to use other software than MS Office 365, they are responsible for saving files in the standard MS Office formats (docx, xlsx, pptx) (Source 2). While the answer states the laptop must be capable of running MS Office and that licenses are provided, this specific detail about file formats is relevant to how the laptop will be used for assignments."
+    },
+    {
+      "id": "tech-02",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The chatbot fabricated tech support contact details including operating hours, email address, and phone number. These details are not present anywhere in the provided context. Missing: The answer did not mention the prohibition on students using wireless routers or access points in dorms (Source 2, 3), which is relevant to WiFi usage rules."
+    },
+    {
+      "id": "tech-03",
+      "accuracy": 4,
+      "overall": 4,
+      "issues": "The answer incorrectly states 'Sending files or emails with destructive code (intentionally or not)'; the context only specifies 'intentionally' for destructive code. It misses several pieces of information: the student's responsibility to maintain their own devices (Source 1), that access is not intended for commercial use (Source 2), specific prohibitions against examination, deletion, copying, or modification of others' files (Source 2), details about file storage (Office 365/OneDrive and school's non-responsibility for files) (Source 4), and handheld device use guidelines (chapel, dining hall, headphones) (Source 6)."
+    },
+    {
+      "id": "cal-01",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": ""
+    },
+    {
+      "id": "cal-02",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucination: The '\u5468\u672b\u4f4f\u5bbf\u89c4\u5b9a' (Weekend accommodation rules) section is fabricated. The context (Source 6) describes daily check-in times and a weekday bedtime, not the specific weekend rules (e.g., 11 PM check-in/leaving dorm policy, 1 AM lights out, Saturday check-in) mentioned in the answer."
+    },
+    {
+      "id": "cal-03",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucinations: The 'Community Weekends' section is entirely fabricated and not present in the provided context. The suggestion to 'visit webb.org/calendar' is also a hallucination. Missing: Important policy details regarding consequences for early departures/late returns, the requirement to complete a break pass in Reach, and specific rules about host families (age, living arrangements) were not included from the student handbook context."
+    },
+    {
+      "id": "cal-04",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucination: The entire '\u793e\u533a\u5468\u672b\u653f\u7b56' (Community Weekend Policy) section is fabricated and not present in the retrieved context. Missing: Information about the 'break pass in Reach' and detailed rules regarding host families (age, verification) from Sources 6 and 7 were not included in the '\u5047\u671f\u89c4\u5b9a' section."
+    },
+    {
+      "id": "intl-01",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The 'Community Weekends Policy' section is entirely fabricated and not present in the context. The 'Additional Resources' section, including all listed external links, is completely fabricated. The suggestion to 'contact the school or visit webb.org' is also not found in the provided context. \nMissing: The answer misses specific travel dates for 2025-2026 and 2026-2027 provided in Sources 3 and 4, and the mention of a calendar on the resource board in the SIS (Source 1). The context mentions 'Students Studying on an I-20' as a section title but provides no specific information *under* that heading. The answer correctly infers that general vacation rules apply, but then proceeds to hallucinate significant amounts of additional information."
+    },
+    {
+      "id": "intl-02",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucination: The answer incorrectly states that students may not leave for vacation before their last commitment on the day vacation begins; the context only states they must vacate dorms according to schedule. This rule (leaving after last commitment) is mentioned for weekend passes, not vacation. Misinterpretation: The answer incorrectly states that students may not live with a guardian or host family younger than 24 years of age. The context, though slightly ambiguous, implies the opposite: 'may live... with a guardian or host family who is younger than 24 years of age.' This is a critical reversal of information."
+    },
+    {
+      "id": "give-01",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "The answer is very accurate and well-organized. Minor omissions include not explicitly listing 'Annuities' as a separate gift type (though mentioned in the context under Life Insurance), and some finer details for 'Bequests & Testamentary Trusts' and 'Charitable Trusts & Life Income Plans'. The context itself presents two different phone numbers for the Advancement Office (909) 482-5206 and (909) 482-5223, sometimes for similar purposes (e.g., stock gifts), and the answer faithfully reflects these different numbers where they appear in the sources, and then gives one general number, which is a reasonable way to handle the context's inherent ambiguity without hallucinating."
+    },
+    {
+      "id": "give-02",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "Hallucinations: The answer fabricates several fund names (Otis Booth '40 Scholarship Fund, Michael '92 and Alicia Chang Scholarship, Class of '69 Scholarship Fund, Class of 1970 Scholarship Fund, Vivian Webb School Scholarship Fund, Hu Family Endowed Fund for Faculty Support, Edward E. Ford Foundation Fund, Wang Family Fund for Math and Science, VWS Athletic Fund). It also suggests visiting webb.org which is not in the context. Missing: The answer failed to list several funds that were present in the context (e.g., Dodd Fischer '61 Endowment Fund, The Gordon A. Wilson Memorial Fund, The Yang Family Fund, Thornton Family Teaching Chair, John Trefethen '62 Scholarship Fund, Annis Van Nuys Schweppe Book Fund, Leslys & Jim Vedder '45 Scholarship Fund)."
+    },
+    {
+      "id": "edge-01",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "The answer hallucinates nearly all of the 'Background' information for Dr. Theresa Smith (degrees, author, experience, previous roles) and all of the 'Administrative Structure' and disciplinary process details. While correctly inferring the school has a 'Head of School' instead of a 'principal' and identifying 'Theresa Smith, Ph.D.' as this individual, the vast majority of the provided details are not present in the retrieved context. The statement 'The documents I have access to show this administrative structure' is also false."
+    },
+    {
+      "id": "edge-02",
+      "accuracy": 5,
+      "overall": 4,
+      "issues": "Missing details about the extensive 'Tutoring Policy' for external/approved tutors, including information on independent contractors, SAT tutoring companies, and rules for faculty/staff tutoring. Also misses 'Required Academic Support' for consistently struggling students."
+    },
+    {
+      "id": "edge-03",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": ""
+    },
+    {
+      "id": "edge-04",
+      "accuracy": 1,
+      "overall": 2,
+      "issues": "Hallucinations: The section '\u7279\u6b8a\u60c5\u51b5\u8054\u7cfb\u4eba' (Special Circumstance Contacts) listing 'BIPOC (Black, Indigenous, People of Color) Accommodation Advisor,' 'Director of Equity,' 'Associate Director of Equity,' 'Affinity Group Advisor,' and 'Associate Head of School' is not found anywhere in the provided context. The detailed description of Lighthouse as a 'third-party organization responsible for collecting reports and conveying information to Webb senior administrators, while protecting the confidentiality of reporters' contains specific claims (e.g., 'third-party organization,' 'conveying information to Webb senior administrators,' 'protecting the confidentiality') that are inferences and not explicitly stated in the context, which only refers to it as 'the schools\u2019 reporting service' for 'anonymous' reports. Missing: The answer does not include contacts from the course catalog (Registrar Briar Rose Tirpak, Director of Studies Nina Butler-Roberts, student's advisor, department chair) which are listed for 'questions you may have' and could potentially be relevant for certain types of complaints about a teacher (e.g., academic matters)."
+    },
+    {
+      "id": "edge-05",
+      "accuracy": 1,
+      "overall": 1,
+      "issues": "The answer fabricates a significant amount of information, specifically regarding a 'girls' softball team' and an entire detailed 'school uniform policy' for both boys and girls. The retrieved context (Source 6) only mentions the 2025-26 Student Handbook in relation to sports participation, not uniforms. This is a severe hallucination that makes the answer unreliable and misleading."
+    },
+    {
+      "id": "edge-06",
+      "accuracy": 5,
+      "overall": 5,
+      "issues": "Missing: The context mentions that Webb offers classes in paleontology and museum research, and that a Webb student discovered a baby T-Rex skeleton. These student opportunities were not included. Also, the context mentions the museum was established due to the need for fossil storage and displaying trackways, which was omitted from the history section."
+    },
+    {
+      "id": "edge-07",
+      "accuracy": 2,
+      "overall": 2,
+      "issues": "Hallucination: The answer suggests contacting the school or visiting 'webb.org/athletics' for current roster information, but this information is not present in the provided context."
+    },
+    {
+      "id": "edge-08",
+      "accuracy": 3,
+      "overall": 4,
+      "issues": "The answer primarily focuses on 'weekend activities' and misses daily afternoon activities (e.g., musical, theater tech, sports practice, yoga, community service) and daily check-ins, which would also be 'activities happening next week'. The recommendation to 'visit webb.org/calendar' for specific next week's activities is not explicitly supported by the context for general student activities; the context provides SIS calendars and Outlook for student activities. Source 2 is an 'Upcoming Events' page but primarily lists alumni events."
+    }
+  ],
+  "mean_accuracy": 2.5625,
+  "mean_overall": 2.6458333333333335
+}

@@ -19,27 +19,37 @@ CHROMA_DIR = os.path.join(os.path.dirname(__file__), "..", "chroma_db")
 COLLECTION_NAME = "webb_knowledge"
 EMBED_MODEL = "gemini-embedding-001"
 TOP_K_PER_QUERY = 5   # chunks per expanded query
-MAX_CHUNKS = 20        # max total chunks after dedup
+MAX_CHUNKS = 15        # max total chunks after dedup (lower = less noise = less hallucination)
 
-SYSTEM_PROMPT = """You are the official AI assistant for The Webb Schools, a private boarding and day school in Claremont, California.
+SYSTEM_PROMPT = """You are a document reader for The Webb Schools.
 
-Answer questions based ONLY on the provided context from Webb Schools' official documents and website.
+## CRITICAL: You know NOTHING about Webb Schools.
 
-ANTI-HALLUCINATION RULES (highest priority):
-- ONLY state facts that are explicitly written in the provided context. Do NOT add details from your own knowledge, even if you believe they are correct.
-- If a specific number, date, dollar amount, or name is not in the context, do NOT guess or infer it. Instead say "Please contact the school for the most current information."
-- If the context does not contain enough information to fully answer the question, clearly state what you found AND what is not covered, rather than filling in gaps.
-- NEVER fabricate policy details, procedures, or consequences that are not explicitly stated in the context.
-- When quoting dates or deadlines from the context, include the academic year they apply to (e.g., "January 15, 2026 for the 2026-27 school year").
+Pretend you have never heard of Webb Schools before. You are reading these documents for the very first time. The ONLY information you have is what appears inside the <context> tags in the user message.
 
-Guidelines:
-- Be thorough and complete: list ALL relevant rules, deadlines, exceptions, conditions, and special cases found in the context. Never omit a policy detail that affects the answer.
-- CRITICAL: Sources marked [RELATED POLICY] MUST ALL be fully included in your answer. Read every [RELATED POLICY] source carefully and explicitly cover ALL rules within them.
-- Format clearly but do not pad: use bullet points for lists of rules, bold for key terms and numbers.
-- For urgent matters (health, safety, emergencies), always direct users to contact school staff immediately.
-- For questions about athletic team rosters, specific team members, or game schedules, direct users to [webb.org/athletics](https://www.webb.org/athletics) for the most up-to-date information.
-- For questions about the school calendar, specific event dates, or upcoming events, direct users to [webb.org/calendar](https://www.webb.org/calendar) for the most current schedule.
-- Language: always respond in the same language the user used to ask the question."""
+## Rules
+
+1. EVERY fact you state MUST come from a specific sentence in <context>. If you cannot quote or closely paraphrase a sentence from <context>, do NOT include that fact.
+
+2. NEVER add information from outside <context>, even if you believe it is correct. Common mistakes to avoid:
+   - Adding sports, clubs, courses, or programs not listed in <context>
+   - Adding numbers, statistics, or counts not stated in <context>
+   - Adding staff names, emails, addresses, or phone numbers not in <context>
+   - Adding policy details, rules, or consequences not in <context>
+   - Adding URLs not in <context> (only webb.org, webb.org/athletics, webb.org/calendar are allowed)
+   - Saying "there are X total" when <context> doesn't state the total
+
+3. When <context> is incomplete, say: "The documents I have access to show [what you found]. For additional information, please contact the school or visit webb.org."
+
+4. A SHORT, ACCURATE answer is always better than a LONG answer with added details.
+
+## Format
+- Use bullet points and bold for key terms
+- Sources marked [RELATED POLICY] must be fully covered
+- Respond in the same language as the question
+- For health/safety emergencies → contact school staff
+- For athletic rosters/schedules → webb.org/athletics
+- For calendar/events → webb.org/calendar"""
 
 
 def expand_query(question):
@@ -344,10 +354,11 @@ def answer(question, chat_history=None):
     else:
         policy_note = ""
 
-    messages.append({
-        "role": "user",
-        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}{_intl_student_note(question)}",
-    })
+    user_content = (
+        f"<context>\n{context}\n</context>\n\n"
+        f"Question: {question}{policy_note}{_intl_student_note(question)}"
+    )
+    messages.append({"role": "user", "content": user_content})
 
     sources = []
     seen_sources = set()
@@ -361,16 +372,22 @@ def answer(question, chat_history=None):
             seen_sources.add(label)
             sources.append(label)
 
+    # Add assistant prefill to anchor the response to context
+    messages.append({
+        "role": "assistant",
+        "content": "Based on the provided context:",
+    })
+
     response = claude.messages.create(
         model="claude-sonnet-4-20250514",
-        max_tokens=1536,
+        max_tokens=1024,
         temperature=0,
         system=SYSTEM_PROMPT,
         messages=messages,
     )
 
     return {
-        "answer": response.content[0].text,
+        "answer": "Based on the provided context:" + response.content[0].text,
         "sources": sources,
         "context": context,
     }
@@ -444,10 +461,11 @@ def answer_stream(question, chat_history=None):
     else:
         policy_note = ""
 
-    messages.append({
-        "role": "user",
-        "content": f"Context from Webb Schools documents:\n\n{context}\n\n---\n\nQuestion: {question}{policy_note}{_intl_student_note(question)}",
-    })
+    user_content = (
+        f"<context>\n{context}\n</context>\n\n"
+        f"Question: {question}{policy_note}{_intl_student_note(question)}"
+    )
+    messages.append({"role": "user", "content": user_content})
 
     # Yield sources first so frontend can display them early
     sources = []
@@ -464,10 +482,19 @@ def answer_stream(question, chat_history=None):
 
     yield {"type": "sources", "sources": sources}
 
+    # Add assistant prefill to anchor the response to context
+    messages.append({
+        "role": "assistant",
+        "content": "Based on the provided context:",
+    })
+
+    # Send the prefill text first
+    yield {"type": "delta", "text": "Based on the provided context:"}
+
     # Stream the response
     with claude.messages.stream(
         model="claude-sonnet-4-20250514",
-        max_tokens=1536,
+        max_tokens=1024,
         temperature=0,
         system=SYSTEM_PROMPT,
         messages=messages,
