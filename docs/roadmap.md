@@ -15,10 +15,10 @@ quadrantChart
     title Feature Priority Matrix
     x-axis "Static Knowledge Base" --> "Dynamic Data Integration"
     y-axis "Parent Value" --> "Student Value"
-    quadrant-1 "Batch 3"
-    quadrant-2 "Batch 1 ★"
-    quadrant-3 "Batch 2"
-    quadrant-4 "Batch 3"
+    quadrant-1 "Phase 3"
+    quadrant-2 "Phase 1 ★"
+    quadrant-3 "Phase 2"
+    quadrant-4 "Phase 3"
     "Campus Info": [0.15, 0.85]
     "Club Search": [0.20, 0.80]
     "Counselor FAQ": [0.30, 0.70]
@@ -33,7 +33,7 @@ quadrantChart
 ```mermaid
 timeline
     title Development Roadmap
-    section Batch 1 — Student Self-Serve (Static KB)
+    section Phase 1 — Student Self-Serve (Static KB)
         Campus Info Assistant ✅ : Shipped
                                 : 117 pages + 9 PDFs
                                 : 1,115 chunks indexed
@@ -42,17 +42,17 @@ timeline
         Counselor FAQ          : Planned
         Application Timeline   : Planned
         Mental Health Resources: Planned
-    section Batch 2 — Parent Value (Static KB)
-        Multilingual Parent Comms : After Batch 1 stable
-        Parent Process Navigation : After Batch 1 stable
-    section Batch 3 — School IT Partnership (Dynamic Data)
+    section Phase 2 — Parent Value (Static KB)
+        Multilingual Parent Comms : After Phase 1 stable
+        Parent Process Navigation : After Phase 1 stable
+    section Phase 3 — School IT Partnership (Dynamic Data)
         Grades / Assignments Query : Requires school API access
         Proactive Parent Alerts    : Requires school API access
 ```
 
 ---
 
-## Batch 1: Students Want It Most + Low Technical Barrier
+## Phase 1: Students Want It Most + Low Technical Barrier
 
 All based on static knowledge base. Students can build end-to-end without external dependencies.
 
@@ -85,7 +85,7 @@ Known improvements pending:
 
 ---
 
-## Batch 2: Parent Value + Low Technical Barrier
+## Phase 2: Parent Value + Low Technical Barrier
 
 Same static knowledge base technology. Students have less personal motivation but may be driven by family needs.
 
@@ -94,11 +94,11 @@ Same static knowledge base technology. Students have less personal motivation bu
 | Multilingual Parent Communication | Many families have this need; natural extension of bilingual support | Low |
 | Parent Process Navigation | Reduces "how do I do this?" questions from parents to students | Medium |
 
-Natural extension after Batch 1 is running smoothly. Students with multilingual families may champion this.
+Natural extension after Phase 1 is running smoothly. Students with multilingual families may champion this.
 
 ---
 
-## Batch 3: Highest Value, Requires School IT Partnership
+## Phase 3: Highest Value, Requires School IT Partnership
 
 Cannot be built by students alone. Requires school IT to authorize API access.
 
@@ -107,7 +107,7 @@ Cannot be built by students alone. Requires school IT to authorize API access.
 | Grades / Assignments / Attendance Query | PowerSchool / Canvas API authorization from school IT | High |
 | Proactive Parent Alerts | Same as above, plus push notification system | High |
 
-**When to pursue**: After Batches 1-2 demonstrate value and the school sees the results, IT will have motivation to open APIs.
+**When to pursue**: After Phases 1-2 demonstrate value and the school sees the results, IT will have motivation to open APIs.
 
 ---
 
