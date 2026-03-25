@@ -331,9 +331,7 @@ python tests/run_tests.py
 | Document | Description |
 |----------|-------------|
 | [Knowledge Base Guide](docs/knowledge-base-guide.md) | How data is acquired, processed, and maintained |
-| [知识库指南](docs/knowledge-base-guide-zh.md) | 知识库技术文档（中文） |
 | [Product Roadmap](docs/roadmap.md) | Feature priorities and development phases |
-| [产品路线图](docs/roadmap-zh.md) | 功能优先级和开发阶段（中文） |
 
 ## License
 
