@@ -36,9 +36,9 @@ flowchart TB
 
     subgraph Data["Knowledge Base"]
         direction LR
-        WEB[("webb.org<br/>61 pages")]:::dataNode
-        PDF[("PDFs<br/>Handbook · Catalog")]:::dataNode
-        VDB[("ChromaDB<br/>822 chunks")]:::dataNode
+        WEB[("webb.org<br/>117 pages")]:::dataNode
+        PDF[("PDFs (9)<br/>Handbook · Catalog · more")]:::dataNode
+        VDB[("ChromaDB<br/>1,115 chunks")]:::dataNode
     end
 
     User --> UI
@@ -75,7 +75,7 @@ flowchart TB
 |-----------|-----------|
 | **Embeddings** | Google Gemini `gemini-embedding-001` (768 dims) |
 | **Generation** | Claude Sonnet 4 (answers) + Claude Haiku 4.5 (query expansion) |
-| **Vector DB** | ChromaDB (local, persistent, 822 chunks) |
+| **Vector DB** | ChromaDB (local, persistent, 1,115 chunks) |
 | **Backend** | Python · FastAPI · Uvicorn |
 | **Frontend** | HTML / CSS / JS · marked.js (Markdown) |
 | **Hosting** | Render (free tier) |
@@ -86,17 +86,19 @@ All data comes from **official Webb Schools sources only**:
 
 | Source | Type | Content | Last Updated |
 |--------|------|---------|-------------|
-| [webb.org](https://www.webb.org) (61 pages) | Website | Admissions, academics, student life, athletics, alumni, summer programs | 2025-03 |
+| [webb.org](https://www.webb.org) (117 pages) | Website | Admissions, academics, student life, athletics, alumni, summer programs, curriculum details | 2025-03 |
 | Student Handbook 2025-26 | PDF | Policies, discipline, dorm rules, passes, honor code, daily schedule | 2025-26 school year |
 | Course Catalog 2026-27 | PDF | Course descriptions, prerequisites, graduation requirements | 2026-27 school year |
+| College Guidance Brochure 2025-26 | PDF | Enrollment stats, GPA calculation, college guidance process | 2025-26 school year |
+| + 5 more PDFs | PDF | Device guidelines, tech FAQ, AUP, travel dates, etc. | 2025-26 school year |
 
 ### Data Pipeline
 
 ```mermaid
 flowchart LR
-    W["webb.org<br/>61 pages"] -->|scraper.py| J["data/scraped/<br/>*.json"]
-    P["PDFs<br/>Handbook · Catalog"] -->|pdf_loader.py| J
-    J -->|"build_index.py<br/><sub>chunk → embed → store</sub>"| C[("ChromaDB<br/>822 chunks")]
+    W["webb.org<br/>117 pages"] -->|scraper.py| J["data/scraped/<br/>*.json"]
+    P["PDFs (9)<br/>Handbook · Catalog · more"] -->|pdf_loader.py| J
+    J -->|"build_index.py<br/><sub>chunk → embed → store</sub>"| C[("ChromaDB<br/>1,115 chunks")]
 
     style W fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
     style P fill:#e8f4f8,stroke:#1a3a5c,color:#1a3a5c
@@ -104,7 +106,7 @@ flowchart LR
     style C fill:#dbeafe,stroke:#2563eb,color:#1e40af
 ```
 
-- **822 chunks** in the vector index
+- **1,115 chunks** in the vector index (117 web pages + 9 PDFs)
 - Chunk size: 1,200 chars with 250 overlap, paragraph-aware splitting
 - Embedding: Gemini `gemini-embedding-001` (768 dimensions)
 
@@ -237,7 +239,7 @@ python rag/build_index.py
 python tests/run_tests.py
 ```
 
-**Important**: There is no "partial update" — you must rebuild the entire index. This takes about 10 minutes due to Gemini API rate limits (822 chunks x embedding calls).
+**Important**: There is no "partial update" — you must rebuild the entire index. This takes about 10 minutes due to Gemini API rate limits (1,115 chunks x embedding calls).
 
 ### Annual Maintenance Checklist
 
@@ -323,6 +325,15 @@ python tests/run_tests.py
 | Gemini Embeddings | ~$0.0001/query | 12 queries x 768 dims |
 | Render hosting | Free | Free tier, paid starts at $7/mo |
 | **Total per query** | **~$0.005** | **~$5 per 1000 questions** |
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Knowledge Base Guide](docs/knowledge-base-guide.md) | How data is acquired, processed, and maintained |
+| [知识库指南](docs/knowledge-base-guide-zh.md) | 知识库技术文档（中文） |
+| [Product Roadmap](docs/roadmap.md) | Feature priorities and development phases |
+| [产品路线图](docs/roadmap-zh.md) | 功能优先级和开发阶段（中文） |
 
 ## License
 
