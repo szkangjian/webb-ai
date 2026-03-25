@@ -57,20 +57,29 @@ All based on static knowledge base. Students can build end-to-end without extern
 
 **Status: Live** at [webb-ai.onrender.com](https://webb-ai.onrender.com)
 
-Typical questions it can answer:
-- "I want to join the debate club — how do I sign up?"
-- "What's the difference between AP Bio and Honors Bio?"
-- "My roommate snores and I can't sleep — can I switch dorms?"
-- "When is spring break? When do we move back in?"
-- "What's the visitor policy for parents on weekends?"
-- "How is GPA calculated? Weighted or unweighted?"
+Coverage categories:
+
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| Courses & Credits | Course descriptions, prerequisites, graduation requirements | Course Catalog, curriculum pages |
+| Boarding Life | Dorm policies, room changes, dorm facilities | Student Handbook |
+| Passes & Leave | Overnight pass, weekend leave, sign-out procedures | Student Handbook |
+| Transportation | Driving policy, pickup/dropoff, airport transport | Student Handbook |
+| Campus Facilities | Library, gym, building locations, hours | webb.org |
+| Clubs & Extracurriculars | Club list, how to join, activity schedules | webb.org |
+| Athletics | Team info, schedules, tryouts, summer training | webb.org (33 team pages) |
+| Summer Programs | Program tracks, dates, registration | webb.org |
+| Discipline & Conduct | Honor Code, disciplinary policies, dress code | Student Handbook |
+| Technology & Devices | WiFi, device requirements, AUP, tech support | AUP, Device Guidelines, Tech FAQ |
+| Calendar & Schedule | Bell schedule, holidays, move-in/out dates | Travel Dates PDF, webb.org |
+| Contacts & Directory | Teacher emails, department phones, advisor | webb.org, College Guidance Brochure |
+| Admissions | Application process, campus tours, international students | webb.org |
+| Campus Safety | Emergency contacts, safety procedures | Student Handbook |
 
 What's been built:
 - RAG pipeline: scrape → chunk → embed → retrieve → generate
-- 117 pages scraped from webb.org (69 static + 33 athletics + 9 other + 6 curriculum-detail via Playwright)
-- 9 PDF documents ingested (Student Handbook, Course Catalog, College Guidance Brochure, AUP, Device Guidelines, Tech FAQ, Travel Dates, and more)
-- 1,115 chunks in ChromaDB vector index (768-dim Gemini embeddings)
-- Full multilingual support (users can ask in any language; cross-language retrieval from English source documents)
+- 117 pages from webb.org + 9 PDF documents → 1,115 chunks in ChromaDB (768-dim Gemini embeddings)
+- Full multilingual support (any language in, any language out; cross-language retrieval)
 - Streaming responses with source citations
 - Mobile-responsive UI with favicon
 - Deployed on Render (free tier, auto-deploy from main branch)
@@ -81,120 +90,91 @@ Known improvements pending:
 
 ### 1B. College Guidance & Application Support
 
-Typical questions to support:
-- "When is the UC application deadline? What do I need to prepare?"
-- "I have a 3.6 GPA — what colleges should I consider?"
-- "What's the FAFSA deadline? What documents do I need?"
-- "How do I request a transcript?"
-- "What are the a-g requirements?"
-
-Data sources needed:
-- College Guidance Brochure (already ingested)
-- Common App / UC / CSU deadline information
-- Webb's college acceptances history (webb.org/acceptances)
-- Naviance or Scoir data (if school shares)
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| College Guidance | Application timelines, recommendation letters, essay tips | College Guidance Brochure (ingested) |
+| Application Deadlines | UC/Common App/CSU due dates, required materials | Need: deadline reference docs |
+| College Matching | GPA-based college suggestions, acceptance history | Need: webb.org/acceptances, Naviance/Scoir |
+| Transcripts & Testing | Transcript requests, standardized testing info | Need: counselor materials |
+| Financial Aid (college) | FAFSA, CSS Profile, scholarship deadlines | Need: financial aid reference docs |
+| a-g Requirements | UC eligibility, course-by-course requirements | Course Catalog (ingested) |
 
 ### 1C. Course Selection Helper
 
-Typical questions to support:
-- "AP Bio vs Honors Bio — what's the difference?"
-- "I want to switch to an AP course — what's the process?"
-- "What are the prerequisites for AP Chemistry?"
-- "Which electives count toward graduation requirements?"
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| Course Comparison | AP vs Honors differences, workload expectations | Course Catalog (ingested), curriculum pages (ingested) |
+| Course Change Process | How to switch/drop courses, add/drop deadlines | Need: counselor process docs |
+| Prerequisites | Required prior courses for advanced classes | Course Catalog (ingested) |
+| GPA Calculation | Weighted vs unweighted, AP/Honors weighting | College Guidance Brochure (ingested) |
+| Academic Support | Tutoring resources, study center, office hours | Need: academic support info |
 
-Data sources needed:
-- Course Catalog (already ingested)
-- Curriculum detail pages (already scraped via Playwright)
-- Add course selection process info from counselor materials
+### 1D. Mental Health & Wellness
 
-### 1D. Mental Health & Wellness Resources
-
-Typical questions to support:
-- "I'm feeling really stressed lately — who can I talk to at school?"
-- "Is there a school counselor I can see confidentially?"
-- "What mental health resources does Webb offer?"
-- "My friend seems depressed — what should I do?"
-
-Data sources needed:
-- Student Handbook wellness section (already ingested)
-- School counseling services info from webb.org
-- Crisis hotline numbers and referral procedures
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| Counseling Services | School counselors, confidentiality, how to access | Student Handbook (ingested), webb.org |
+| Crisis Resources | Hotline numbers, emergency referral procedures | Need: crisis resource list |
+| Peer Support | Peer counseling programs, support groups | Need: student life materials |
+| Health Services | School nurse, medical policies, medication rules | Student Handbook (ingested) |
 
 ---
 
 ## Phase 2: Parent-Focused Features + Low Technical Barrier
 
-Same static knowledge base technology. Students have less personal motivation but may be driven by family needs.
+Same static knowledge base technology. Extends P1 content with parent-specific perspectives.
 
 ### 2A. Parent Process Navigation
 
-Typical questions to support:
-- "When is tuition due? How do I pay?"
-- "How do I contact my child's advisor?"
-- "What's the financial aid application deadline? What materials do I need?"
-- "My child's grades are slipping — what tutoring resources does the school offer?"
-- "What's the visitor policy? Can I visit on weekends?"
-- "My child wants to transfer to an AP course — what's the process?"
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| Tuition & Payment | Due dates, payment methods, payment plans | Need: billing/tuition docs |
+| Financial Aid (school) | Application deadlines, required documents, renewal | webb.org (ingested) |
+| Parent-School Communication | Parent conferences, progress reports, emergency contacts | Need: parent handbook |
+| Academic Support | Tutoring resources, advisor contact, intervention process | Need: parent orientation materials |
+| Visitor Policy | Weekend visits, check-in procedures, campus access | Student Handbook (ingested) |
 
-Data sources needed:
-- Admissions and financial aid pages (already scraped)
-- Tuition and payment process documentation
-- Parent handbook or orientation materials (if available)
+### 2B. Multilingual Parent Support
 
-### 2B. Multilingual Parent Communication
-
-Typical questions to support:
-- "我英语不好，能用中文问吗？"（Can I ask in Chinese?）
-- "학비 납부 기한이 언제예요?"（When is tuition due? — Korean）
-- "¿Cuál es la política de visitas?"（What's the visitor policy? — Spanish）
-
-Implementation:
-- Full multilingual support already works in P1 (any language in, any language out)
-- Focus here is on parent-specific content coverage and testing with common parent languages (Chinese, Korean, Spanish)
-- May need translated FAQ or parent-oriented prompt tuning
+| Category | Examples | Data Source |
+|----------|----------|-------------|
+| Multilingual Q&A | Any question in any language (already works) | All existing sources |
+| Parent-Specific Testing | Validate coverage in Chinese, Korean, Spanish | Testing & prompt tuning |
+| Translated FAQ | Common parent questions pre-tested in target languages | Need: curated FAQ content |
 
 ---
 
 ## Phase 3: Highest Value, Requires School IT Partnership
 
-Cannot be built by students alone. Requires school IT to authorize API access.
+Cannot be built by students alone. Requires school IT to authorize API access and FERPA compliance.
 
 ### 3A. Personal Academic Dashboard
 
-Typical questions to support:
-- "What did I get on my last math test?"
-- "What's my current GPA?"
-- "Do I have any missing assignments?"
-- "What's my attendance record this semester?"
-
-Requirements:
-- PowerSchool / Canvas API authorization from school IT
-- Student authentication (SSO integration)
-- FERPA-compliant data handling
+| Category | Examples | Requirement |
+|----------|----------|-------------|
+| Grades & Scores | Test scores, assignment grades, quarter grades | PowerSchool / Canvas API |
+| GPA Tracking | Current GPA, GPA trend, class rank | PowerSchool API |
+| Attendance | Absence record, tardy count | PowerSchool API |
+| Missing Work | Overdue assignments, upcoming due dates | Canvas API |
+| **Auth** | Student identity verification | SSO integration |
 
 ### 3B. Real-Time School Life
 
-Typical questions to support:
-- "What's for lunch today?"
-- "What events are happening this weekend?"
-- "What's my next class and where is it?"
-
-Requirements:
-- Dining menu data feed
-- Calendar API integration (school events, sports schedules)
-- Student schedule data (PowerSchool)
+| Category | Examples | Requirement |
+|----------|----------|-------------|
+| Dining | Today's menu, allergen info, meal times | Dining menu data feed |
+| Events & Activities | Weekend events, assemblies, special schedules | Calendar API |
+| Sports Schedules | Game times, practice schedules, bus departures | Athletics calendar API |
+| Personal Schedule | Next class, room number, teacher | PowerSchool API |
 
 ### 3C. Proactive Alerts for Parents
 
-Typical scenarios:
-- "Your child has 2 missing assignments in AP History"
-- "Reminder: tuition payment due in 5 days"
-- "Your child's GPA dropped below 3.0 this quarter"
-
-Requirements:
-- All of 3A's requirements, plus push notification system
-- Parent notification preferences and opt-in
-- Alert threshold configuration
+| Category | Examples | Requirement |
+|----------|----------|-------------|
+| Academic Alerts | Missing assignments, GPA drop below threshold | PowerSchool/Canvas API + push system |
+| Financial Reminders | Tuition due dates, payment confirmations | Billing system integration |
+| Attendance Alerts | Unexcused absences, tardy patterns | PowerSchool API + push system |
+| **Config** | Notification preferences, opt-in/out, thresholds | Parent portal + notification service |
 
 **When to pursue**: After Phases 1-2 demonstrate value and the school sees the results, IT will have motivation to open APIs.
 
