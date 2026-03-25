@@ -15,8 +15,8 @@ quadrantChart
     title Feature Priority Matrix
     x-axis "Static Knowledge Base" --> "Dynamic Data Integration"
     y-axis "Parent Value" --> "Student Value"
-    quadrant-1 "Batch 1 ★"
-    quadrant-2 "Batch 3"
+    quadrant-1 "Batch 3"
+    quadrant-2 "Batch 1 ★"
     quadrant-3 "Batch 2"
     quadrant-4 "Batch 3"
     "Campus Info": [0.15, 0.85]

@@ -15,8 +15,8 @@ quadrantChart
     title 功能优先级矩阵
     x-axis "静态知识库" --> "动态数据对接"
     y-axis "家长价值" --> "学生价值"
-    quadrant-1 "第一批 ★"
-    quadrant-2 "第三批"
+    quadrant-1 "第三批"
+    quadrant-2 "第一批 ★"
     quadrant-3 "第二批"
     quadrant-4 "第三批"
     "校园百事通": [0.15, 0.85]
