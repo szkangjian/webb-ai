@@ -1,9 +1,10 @@
 # Webb AI Assistant — User Survey Design
 
-> Goal: Understand how Webb students and parents find school information, and what they need most.
-> Positioning: "Webb Student Information Needs Survey" — an independent student research project.
-> Platform: Google Forms, anonymous, bilingual (English + Chinese; add Korean/Spanish if needed).
-> Target completion time: Students 3-4 min, Parents 2-3 min.
+> **Goal**: Understand how Webb students and parents find school information, and what they need most.
+> **Positioning**: "Webb Student Information Needs Survey" — an independent student research project.
+> **Platform**: Google Forms, anonymous.
+> **Languages**: 7 versions — English / 中文 / 한국어 / Español / 日本語 / Tiếng Việt / ภาษาไทย
+> **Target completion time**: Students 3-4 min, Parents 2-3 min.
 
 ---
 
@@ -53,15 +54,16 @@
 
 ### Section 3: Try the Webb AI Assistant (1.5 min)
 
-> Please visit **webb-ai.onrender.com** and ask 1-2 questions you actually care about. Then answer below.
+> This tool answers questions based on Webb's official website (117 pages) and school documents including the Student Handbook, Course Catalog, and College Guidance Brochure. You can ask anything from dorm policies to the men's 100m school record.
+>
+> Please visit **webb-ai.onrender.com** and spend 2-3 minutes asking a few questions you actually care about.
 
-**Q6.** What question(s) did you ask? *(Open text)*
+**Q6.** Overall, how was your experience?
+- 1 (Poor) / 2 / 3 / 4 / 5 (Excellent)
 
-**Q7.** Was the answer helpful?
-- 1 (Not helpful) / 2 / 3 / 4 / 5 (Very helpful)
+**Q7.** Which answer impressed you the most? Please paste the question and answer here. *(Optional, open text)*
 
-**Q8.** Was the answer accurate (based on what you know)?
-- Accurate / Mostly accurate / Not sure / Some errors / Clearly wrong
+**Q8.** Which answer disappointed you or had errors? Please paste the question and answer here. *(Optional, open text)*
 
 **Q9.** Would you use a tool like this again?
 - Yes, regularly
@@ -69,18 +71,19 @@
 - Maybe, if it improves
 - Probably not
 
-**Q10.** What's one thing that would make this tool more useful to you? *(Open text)*
+**Q10.** What would make this tool more useful to you? *(Optional, open text)*
 
 ---
 
 ### Section 4: What Would Help You Most (30 sec)
 
-**Q11.** If an AI assistant could help you with ONE of these, which would you choose? *(Pick one)*
-- College application guidance (deadlines, recommendation letters, essay tips)
-- Course selection advice (what to take, prerequisites, AP vs Honors)
-- Quick answers about campus life (dorm rules, passes, transportation)
+**Q11.** If an AI assistant could help you with ONE of these, which would you pick?
+- College application guidance (deadlines, rec letters, essay tips)
+- Course selection advice (prerequisites, AP vs Honors, workload)
 - Mental health & wellness resources
 - Real-time info (today's schedule, dining menu, events)
+- Help in my parent's language (中文, 한국어, Español, etc.)
+- Other: ___
 
 **Q12.** Anything else you'd like to share? *(Optional, open text)*
 
@@ -88,50 +91,117 @@
 
 ## Parent Survey (家长问卷)
 
-> Note: Provide in English + Chinese + Korean + Spanish.
-> Distributed via students to their parents during spring break.
+> **Languages**: 7 full versions — English / 中文 / 한국어 / Español / 日本語 / Tiếng Việt / ภาษาไทย
+> **Distribution**: Students forward to parents during spring break.
+> Below shown in English + 中文. Other languages follow the same structure.
 
-### 家长问卷 / Parent Survey
+### Section 1: About You
 
 **Q1.** 您的孩子是几年级？/ What grade is your child in?
 - 9th / 10th / 11th / 12th
 
 **Q2.** 您的首选语言是什么？/ What is your preferred language?
-- English / 中文 / 한국어 / Español / Other: ___
+- English / 中文 / 한국어 / Español / 日本語 / Tiếng Việt / ภาษาไทย / Other: ___
 
-**Q3.** 您在寻找 Webb 学校相关信息时，是否遇到过困难？/ Have you ever had difficulty finding information about Webb?
+---
+
+### Section 2: How You Get Information Now
+
+**Q3.** 您通常怎样了解孩子在学校的情况？/ How do you usually learn about your child's school life? *(Select all that apply)*
+- 孩子告诉我 / From my child
+- 学校邮件 / School emails
+- 学校网站 webb.org
+- 联系老师或advisor / Contact teacher or advisor
+- 期末成绩单 / End-of-semester report card
+- 家长会 / Parent conferences
+- 其他 Other: ___
+
+**Q4.** 关于孩子的学业，您通常什么时候了解到情况？/ When do you typically learn about your child's academic situation?
+- 随时都能了解 / I can check anytime
+- 每几周了解一次 / Every few weeks
+- 期中或期末才知道 / Only at midterm or end of semester
+- 孩子主动告诉我才知道 / Only when my child tells me
+
+**Q5.** 您在寻找 Webb 学校相关信息时，是否遇到过困难？/ Have you ever had difficulty finding information about Webb?
 - 从不 Never / 偶尔 Occasionally / 经常 Often
 
-**Q4.** 如果有困难，通常是哪方面的信息？*(Select all that apply)*
-- 学费与付款 Tuition & payment
-- 大学申请指导 College application guidance
-- 孩子的学业情况 Child's academic progress
-- 学校政策与规则 School policies & rules
-- 校园安全 Campus safety
-- 联系学校的方式 How to contact the school
-- 校历与重要日期 Calendar & important dates
-- Other: ___
+**Q6.** 如果有困难，通常是哪方面的信息？/ If yes, what kind of information? *(Select all that apply)*
+- 学费与付款 / Tuition & payment
+- 大学申请指导 / College application guidance
+- 各科成绩与作业情况 / Grades & assignments
+- 出勤情况 / Attendance
+- 学校政策与规则 / School policies & rules
+- 校园安全 / Campus safety
+- 联系学校的方式 / How to contact the school
+- 校历与重要日期 / Calendar & important dates
+- 其他 Other: ___
 
-**Q5.** 请访问 webb-ai.onrender.com，用您的母语问一个问题。回答有帮助吗？
-/ Please visit webb-ai.onrender.com and ask a question in your language. Was the answer helpful?
-- 1 (没有帮助 Not helpful) / 2 / 3 / 4 / 5 (非常有帮助 Very helpful)
+---
 
-**Q6.** 您最希望学校提供哪方面的信息支持？*(Pick one)*
-- 大学申请与升学指导 College guidance
-- 学业进展与成绩 Academic progress & grades
-- 校园生活与安全 Campus life & safety
-- 学费与财务 Tuition & financial info
-- 心理健康与支持 Mental health & support
+### Section 3: Try the Webb AI Assistant
 
-**Q7.** 其他建议或反馈？/ Any other suggestions? *(Optional, open text)*
+> 请访问 webb-ai.onrender.com，**用您的母语**提问。无论您用什么语言提问，都会用同样的语言回答。
+>
+> Please visit webb-ai.onrender.com and ask in **your own language**. The assistant will reply in whatever language you use.
+
+**Q7.** 整体印象如何？/ Overall, how was your experience?
+- 1 (很差 Poor) / 2 / 3 / 4 / 5 (很好 Excellent)
+
+**Q8.** 哪个回答让你印象最好？请把问题和回答复制在这里。/ Which answer impressed you? Please paste the Q&A here. *(Optional, open text)*
+
+**Q9.** 哪个回答让你失望或有错误？请把问题和回答复制在这里。/ Which answer disappointed you? Please paste the Q&A here. *(Optional, open text)*
+
+---
+
+### Section 4: What Would Help You Most
+
+**Q10.** 您最希望及时了解孩子哪方面的信息？/ What information do you most want to stay updated on? *(Select up to 2)*
+- 各科成绩与作业情况 / Grades & assignments
+- 出勤情况 / Attendance
+- 在校生活与情绪状态 / Well-being & social life
+- 大学申请进展 / College application progress
+- 学校通知与日程变化 / School announcements & schedule changes
+- 其他 Other: ___
+
+**Q11.** 您最希望学校提供哪方面的信息支持？/ What kind of support would help you most? *(Pick one)*
+- 大学申请与升学指导 / College guidance
+- 孩子学业的实时进展 / Real-time academic progress
+- 校园生活与安全 / Campus life & safety
+- 学费与财务信息 / Tuition & financial info
+- 心理健康与支持 / Mental health & support
+- 其他 Other: ___
+
+**Q12.** 其他建议或反馈？/ Any other suggestions? *(Optional, open text)*
+
+---
+
+## Data Strategy
+
+### What this survey tells us
+
+| Survey Question | Informs |
+|----------------|---------|
+| Student Q5 (hardest to find) | Roadmap priority: 1B vs 1C vs 1D |
+| Student Q11 (most wanted feature) | Roadmap priority: Phase 1 vs Phase 2 vs Phase 3 |
+| Student Q7-Q8 (best/worst answers) | Product improvement: which knowledge areas need work |
+| Parent Q4 (when they learn about academics) | Evidence for real-time data access need (Phase 3) |
+| Parent Q10 (what they want updates on) | Roadmap priority: Phase 2 vs Phase 3 features |
+| Parent Q3 (current info sources) | Identifies gaps in school communication |
+
+### How to use results with school
+
+- **Needs data** (Q3-Q5, Parent Q3-Q6): "Here's what students and parents struggle with" → basis for discussing data sources
+- **Product feedback** (Q6-Q10): "Here's what works and what needs improvement" → shows credibility and self-awareness
+- **Priority data** (Q11, Parent Q10-Q11): "Here's what the community wants most" → shared decision-making, not confrontation
 
 ---
 
 ## Implementation Notes
 
 - **Anonymous**: No names, no email collection
-- **No mention of webbgpt.ai or school's AI project** — this is purely a needs survey + product feedback
-- **Distribution**: Students share Google Forms link via group chat; ask international students to forward parent survey to parents
+- **No mention of webbgpt.ai or school's AI project** — purely a needs survey + product feedback
+- **Distribution**: Students share Google Forms link via group chat; international students forward parent survey link to parents
+- **Parent intro message**: Students should briefly explain to parents what this is before sharing the link
 - **Timeline**: Send during spring break, collect for 1 week
-- **Sample size target**: 30+ students, 15+ parents would be meaningful for a school of Webb's size
-- **Data use**: Results inform product roadmap priorities and provide evidence of real user needs
+- **Sample size target**: 30+ students, 15+ parents would be meaningful for a school of Webb's size (~300 students)
+- **Reporting**: Use "among surveyed students/parents" — not "most students think..."
