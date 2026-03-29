@@ -1,10 +1,10 @@
 # Webb AI Assistant — User Survey Design
 
-> **Goal**: Understand how Webb students and parents find school information, and what they need most.
-> **Positioning**: "Webb Student Information Needs Survey" — an independent student research project.
+> **Goal**: Understand how Webb students and parents find school information, how they use AI, and what they need most.
+> **Positioning**: "Webb Student Information & AI Needs Survey" — an independent student research project.
 > **Platform**: Google Forms, anonymous.
 > **Languages**: 7 versions — English / 中文 / 한국어 / Español / 日本語 / Tiếng Việt / ภาษาไทย
-> **Target completion time**: Students 3-4 min, Parents 2-3 min.
+> **Target completion time**: Students 4-5 min, Parents 2-3 min.
 
 ---
 
@@ -75,17 +75,56 @@
 
 ---
 
-### Section 4: What Would Help You Most (30 sec)
+### Section 4: AI & Your Learning (1 min)
 
-**Q11.** If an AI assistant could help you with ONE of these, which would you pick?
+**Q11.** Which AI tools have you used? *(Select all that apply)*
+- ChatGPT (Free)
+- ChatGPT (Plus/paid)
+- Claude
+- Google Gemini
+- Microsoft Copilot
+- Perplexity
+- Other: ___
+- I don't use AI tools
+
+**Q12.** When you're stuck on schoolwork, what do you usually do? *(Select all that apply)*
+- Ask a classmate
+- Ask a teacher (after class or office hours)
+- Watch YouTube / Khan Academy
+- Use ChatGPT or other AI
+- Re-read notes and try again
+- Give up and move on
+- Other: ___
+
+**Q13.** Which of these situations do you experience most often? *(Pick one)*
+- I get stuck on a problem and don't know the next step
+- I submit work but have to wait days to find out if it's right
+- I think I understand something, then bomb the test
+- I want to discuss an idea but can't find the right person
+- I don't have major learning difficulties
+
+**Q14.** If AI could help you learn in these ways (**without giving you the answer**), which would you want most? *(Pick up to 2)*
+- When I'm stuck, guide me with questions instead of giving me the answer
+- After I submit work, instantly point out where I went wrong (but not the answer)
+- Let me explain a concept to it, then tell me what I'm missing
+- Discuss my writing ideas and challenge my arguments
+- Help me make a study plan and review schedule
+- Other: ___
+
+---
+
+### Section 5: What Would Help You Most (30 sec)
+
+**Q15.** If an AI assistant could help you with ONE of these, which would you pick?
 - College application guidance (deadlines, rec letters, essay tips)
 - Course selection advice (prerequisites, AP vs Honors, workload)
 - Mental health & wellness resources
 - Real-time info (today's schedule, dining menu, events)
+- AI learning assistant (help me study, not give me answers)
 - Help in my parent's language (中文, 한국어, Español, etc.)
 - Other: ___
 
-**Q12.** Anything else you'd like to share? *(Optional, open text)*
+**Q16.** Anything else you'd like to share? *(Optional, open text)*
 
 ---
 
@@ -182,7 +221,10 @@
 | Survey Question | Informs |
 |----------------|---------|
 | Student Q5 (hardest to find) | Roadmap priority: 1B vs 1C vs 1D |
-| Student Q11 (most wanted feature) | Roadmap priority: Phase 1 vs Phase 2 vs Phase 3 |
+| Student Q11 (AI tools used) | Baseline: how deep is AI adoption already? Free vs paid = dependency level |
+| Student Q13 (learning pain points) | Which learning assistance mode has most demand |
+| Student Q14 (AI learning preferences) | Validates Socratic / instant feedback / Feynman / writing partner approaches |
+| Student Q15 (most wanted feature) | Roadmap priority: info retrieval vs learning assistant vs Phase 3 |
 | Student Q7-Q8 (best/worst answers) | Product improvement: which knowledge areas need work |
 | Parent Q4 (when they learn about academics) | Evidence for real-time data access need (Phase 3) |
 | Parent Q10 (what they want updates on) | Roadmap priority: Phase 2 vs Phase 3 features |
@@ -191,8 +233,10 @@
 ### How to use results with school
 
 - **Needs data** (Q3-Q5, Parent Q3-Q6): "Here's what students and parents struggle with" → basis for discussing data sources
+- **AI adoption data** (Q11-Q12): "Here's what students are already doing with AI" → supports the case for guided AI use rather than blanket restrictions
+- **Learning assistance data** (Q13-Q14): "Here's how students want AI to help them learn — without giving answers" → directly supports school's AI policy direction, provides concrete implementation ideas
 - **Product feedback** (Q6-Q10): "Here's what works and what needs improvement" → shows credibility and self-awareness
-- **Priority data** (Q11, Parent Q10-Q11): "Here's what the community wants most" → shared decision-making, not confrontation
+- **Priority data** (Q15, Parent Q10-Q11): "Here's what the community wants most" → shared decision-making, not confrontation
 
 ---
 
