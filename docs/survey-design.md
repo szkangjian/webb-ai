@@ -241,6 +241,167 @@
 
 ---
 
+## Data Evaluation Methodology
+
+### 1. Sample Validity
+
+Webb has ~300 students. Response thresholds:
+
+| Responses | Interpretation |
+|-----------|---------------|
+| < 15 students | Directional only — treat as qualitative interviews, not statistics |
+| 15–30 students | Usable with caveats — report as "among N respondents" with percentages |
+| 30–60 students (10–20%) | Solid — can make confident claims about student sentiment |
+| 60+ students (20%+) | Strong — representative of the student body |
+
+For parents, thresholds are lower (harder to reach):
+
+| Responses | Interpretation |
+|-----------|---------------|
+| < 8 parents | Anecdotal — use quotes, not percentages |
+| 8–15 parents | Directional — identify patterns but caveat sample size |
+| 15+ parents | Usable — especially if multiple language groups represented |
+
+**Before any quantitative analysis**: check total sample size first. If below threshold, pivot to qualitative analysis (themes, quotes, patterns) rather than forcing percentages on small numbers.
+
+### 2. Stratification
+
+Analyze the following subgroups separately when sample size allows (minimum 5 per subgroup to report):
+
+**By grade:**
+
+| Subgroup | Why it matters | Expected difference |
+|----------|---------------|-------------------|
+| 9th–10th vs 11th–12th | Upperclassmen care more about college; underclassmen care more about campus life | Q5, Q14, Q15 will likely diverge |
+| 12th graders specifically | Already through college apps — their Q15 reflects hindsight, not current need | May validate 1B priority for next year's juniors |
+
+**By student type:**
+
+| Subgroup | Why it matters |
+|----------|---------------|
+| Boarding vs Day | Boarding students have more campus-life questions; day students may rely more on parents |
+| AI power users (paid tools) vs casual/non-users | Power users will give more nuanced product feedback; non-users reveal the adoption gap |
+
+**Parent stratification:**
+
+| Subgroup | Why it matters |
+|----------|---------------|
+| By preferred language | Non-English parents likely have worse information access — validates multilingual priority |
+| By Q4 response (info timing) | Parents who only learn at end-of-semester are the core audience for Phase 3 |
+
+**Rule**: Only stratify if subgroup has ≥ 5 responses. Otherwise merge into the overall pool and note the limitation.
+
+### 3. Key Signal Thresholds
+
+These are the numbers that turn survey data into actionable decisions:
+
+**AI adoption baseline (Q11):**
+
+| Finding | Implication |
+|---------|------------|
+| > 70% use any AI tool | AI is already mainstream — school policy should guide, not restrict |
+| > 30% use paid AI (ChatGPT Plus etc.) | AI is deeply embedded in student workflow — high urgency to provide school-specific alternative |
+| > 50% use AI when stuck (Q12) | Validates Phase 1.5 — students are already doing this, just without pedagogical guardrails |
+
+**Information pain points (Q5):**
+
+| Finding | Roadmap action |
+|---------|---------------|
+| "College application" ranks #1 | Prioritize 1B |
+| "Course selection" ranks #1 | Prioritize 1C |
+| "Mental health resources" ranks top 3 | Prioritize 1D — and flag sensitivity to school |
+
+**Learning assistance (Q13–Q14):**
+
+| Finding | Roadmap action |
+|---------|---------------|
+| "Stuck on problems" is top Q13 pain point | Prioritize 1.5A (Socratic) |
+| "Wait days for feedback" is top Q13 pain point | Prioritize 1.5B (Instant Feedback) |
+| "Think I understand then bomb the test" is common | Prioritize 1.5C (Feynman) — comprehension gap |
+| Q14 top pick aligns with Q13 top pain point | Strong validation — build this first |
+| Q14 top pick diverges from Q13 | Students want something different from what they need — discuss before deciding |
+
+**Product feedback (Q6, Q9):**
+
+| Finding | Action |
+|---------|--------|
+| Q6 average ≥ 4.0 | Product is ready to promote more broadly |
+| Q6 average 3.0–3.9 | Usable but needs improvement — review Q8 for specific issues |
+| Q6 average < 3.0 | Hold promotion — fix issues identified in Q8 first |
+| Q9 "regularly" + "occasionally" > 60% | Retention signal — users see ongoing value |
+| Q9 "probably not" > 30% | Product-market fit problem — deep dive into Q8 and Q10 |
+
+**Parent signals (Q4, Q10):**
+
+| Finding | Implication |
+|---------|------------|
+| > 50% parents learn about academics only at midterm/end or "when child tells me" | Strong evidence for real-time data access (Phase 3) — use this number when talking to school IT |
+| "Grades & assignments" is top Q10 pick | Confirms Phase 3A should be the IT partnership pitch |
+| Non-English parents score higher on Q5 (difficulty) | Validates 2B multilingual priority with data |
+
+### 4. Priority Scoring Model
+
+After data collection, score each roadmap item using:
+
+```
+Priority Score = (Demand Signal × 0.4) + (Pain Severity × 0.3) + (Feasibility × 0.3)
+```
+
+| Factor | How to measure | Scale |
+|--------|---------------|-------|
+| Demand Signal | % of respondents who selected this in Q5/Q14/Q15 | 0–100, normalize to 0–10 |
+| Pain Severity | Q4/Q13 responses — how acute is the underlying problem? | 1–10 subjective rating based on data patterns |
+| Feasibility | Can we build it without school IT? How much effort? | 10 = already built, 7 = prompt engineering only, 4 = needs new data, 1 = needs school API |
+
+**Example** (hypothetical):
+
+| Item | Demand (×0.4) | Pain (×0.3) | Feasibility (×0.3) | Score |
+|------|--------------|-------------|-------------------|-------|
+| 1B College Guidance | 8 × 0.4 = 3.2 | 7 × 0.3 = 2.1 | 7 × 0.3 = 2.1 | **7.4** |
+| 1.5A Socratic Tutor | 7 × 0.4 = 2.8 | 9 × 0.3 = 2.7 | 8 × 0.3 = 2.4 | **7.9** |
+| 3A Academic Dashboard | 9 × 0.4 = 3.6 | 8 × 0.3 = 2.4 | 1 × 0.3 = 0.3 | **6.3** |
+
+This keeps prioritization data-driven rather than opinion-based. The model is a guide, not a formula — use judgment when scores are close.
+
+### 5. Qualitative Analysis (Open-Ended Questions)
+
+For Q7, Q8, Q10, Q16, and parent Q8, Q9, Q12:
+
+1. **Collect all responses into a single sheet** — tag each with respondent's grade, boarding/day, language
+2. **Theme coding** — read through all responses and tag recurring themes (e.g., "slow response", "wrong info about X", "want schedule info")
+3. **Frequency count** — which themes appear 3+ times? These are patterns, not noise
+4. **Quote extraction** — pull 3-5 representative quotes for each major theme, to use in the report to school
+5. **Q7/Q8 specifically** — these are real query-response pairs. Log them as test cases for product improvement, categorize by:
+   - Correct and helpful → strength to preserve
+   - Correct but unhelpful (too vague, too long) → prompt tuning needed
+   - Incorrect → knowledge base gap or retrieval error → fix
+
+### 6. Reporting Framework
+
+Prepare two versions of the results:
+
+**Version A: Internal (for roadmap decisions)**
+- Raw data, all charts, subgroup breakdowns
+- Priority scoring table
+- Specific product improvement actions from Q7/Q8
+- Honest assessment of what's working and what's not
+
+**Version B: For school stakeholders**
+- Lead with community needs, not product promotion
+- Structure: "What students told us" → "What parents told us" → "What this suggests"
+- Use data visualizations: simple bar charts, not tables
+- Include direct quotes (anonymous) — they're more persuasive than percentages
+- End with questions, not conclusions: "Based on this data, we'd like to discuss..."
+- **Tone**: collaborative researcher presenting findings, not student pitching a product
+
+**Key reporting rules:**
+- Never say "most students" unless it's actually > 50% of a valid sample
+- Always state sample size: "Among the 42 students who responded..."
+- Report confidence honestly: "With 12 parent responses, this is directional, not conclusive"
+- If a finding contradicts your hypothesis, report it anyway — credibility > confirmation
+
+---
+
 ## Implementation Notes
 
 - **Anonymous**: No names, no email collection
