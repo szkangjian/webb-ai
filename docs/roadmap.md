@@ -23,6 +23,10 @@ quadrantChart
     "1B College Guidance": [0.25, 0.80]
     "1C Course Selection": [0.20, 0.70]
     "1D Mental Health": [0.25, 0.65]
+    "1.5A Socratic Tutor": [0.35, 0.90]
+    "1.5B Instant Feedback": [0.45, 0.85]
+    "1.5C Feynman Method": [0.35, 0.75]
+    "1.5D Writing Partner": [0.30, 0.80]
     "2A Parent Navigation": [0.30, 0.25]
     "2B Multilingual": [0.20, 0.30]
     "3A Academic Dashboard": [0.80, 0.75]
@@ -38,6 +42,11 @@ timeline
         1B College Guidance     : Planned — application deadlines, GPA advice
         1C Course Selection     : Planned — course comparison, prerequisites
         1D Mental Health        : Planned — wellness resources, crisis referral
+    section Phase 1.5 — AI-Assisted Learning (Prompt Engineering)
+        1.5A Socratic Tutor    : Exploratory — guide with questions, not answers
+        1.5B Instant Feedback   : Exploratory — identify errors, withhold solutions
+        1.5C Feynman Method     : Exploratory — student explains, AI finds gaps
+        1.5D Writing Partner    : Exploratory — challenge arguments, discuss ideas
     section Phase 2 — Parent-Focused (Static KB)
         2A Parent Navigation   : Process guides, tuition, advisor contacts
         2B Multilingual Support: Parent-specific content in multiple languages
@@ -117,6 +126,64 @@ Known improvements pending:
 | Crisis Resources | Hotline numbers, emergency referral procedures | Need: crisis resource list |
 | Peer Support | Peer counseling programs, support groups | Need: student life materials |
 | Health Services | School nurse, medical policies, medication rules | Student Handbook (ingested) |
+
+---
+
+## Phase 1.5: AI-Assisted Learning (Exploratory)
+
+A different product dimension from information retrieval. Instead of "find me an answer," this is "help me understand." Core technology is **prompt engineering** — same LLM, different system prompts that constrain AI behavior to specific pedagogical methods. No model training required.
+
+**Alignment with school AI policy**: Webb allows AI discussion in humanities but prohibits AI-generated answers in STEM. Phase 1.5 is designed to comply with and operationalize this policy — every mode below explicitly withholds answers and instead develops student thinking.
+
+**Priority within Phase 1.5**: To be determined by survey data (Student Q13 & Q14). Launch one mode as a prototype, validate with real students, then expand.
+
+### 1.5A. Socratic Tutor (STEM focus)
+
+When a student is stuck on a problem, AI guides them with questions instead of answers.
+
+| Aspect | Detail |
+|--------|--------|
+| How it works | Student asks "how do I solve this?" → AI responds with "What physical law applies here?" → step-by-step questioning until student arrives at the answer |
+| Pedagogy | Socratic method (cf. Khan Academy's AI tutor Khanmigo) |
+| Technical approach | System prompt: "Never give the answer. Ask one guiding question at a time. If the student is completely lost, give a hint about which concept to review, not the solution." |
+| Data needed | None beyond general LLM knowledge — works for standard AP/honors curricula |
+| Limitation | Cannot tutor on Webb-specific custom assignments unless teacher provides materials |
+
+### 1.5B. Instant Feedback
+
+Student submits an answer → AI immediately identifies errors without revealing the correct answer.
+
+| Aspect | Detail |
+|--------|--------|
+| How it works | Student pastes their solution → AI says "Step 3 has a unit conversion error" or "Your thesis doesn't address the counterargument" |
+| Pedagogy | Immediate corrective feedback — research shows faster feedback loops improve retention vs. waiting days for teacher grading |
+| Technical approach | System prompt: "Identify the specific error and its location. Explain what type of error it is. Do not provide the correct answer or a corrected version." |
+| Data needed | Works for standard problems; Webb-specific assignments would need answer keys from teachers |
+| Limitation | Accuracy varies by subject — math/physics reliable, subjective essays need careful prompt tuning |
+
+### 1.5C. Feynman Method
+
+Student explains a concept to AI → AI identifies gaps in understanding.
+
+| Aspect | Detail |
+|--------|--------|
+| How it works | Student says "Let me explain photosynthesis..." → AI listens, then asks "You mentioned light reactions produce ATP, but you skipped how the electron transport chain works — can you fill in that step?" |
+| Pedagogy | Feynman technique — teaching forces clarity; gaps in explanation reveal gaps in understanding |
+| Technical approach | System prompt: "Let the student explain fully. Then identify 1-2 specific gaps or inaccuracies in their explanation. Ask them to clarify those parts." |
+| Data needed | None — general knowledge |
+| Limitation | Student must be willing to type out explanations — higher effort than other modes |
+
+### 1.5D. Writing Discussion Partner (Humanities focus)
+
+AI discusses ideas and challenges arguments without writing for the student.
+
+| Aspect | Detail |
+|--------|--------|
+| How it works | Student shares a thesis or essay draft → AI asks "What's the strongest counterargument to your position?" or "Your second paragraph claims X but your evidence supports Y — how do you reconcile that?" |
+| Pedagogy | Dialectical method — strengthens critical thinking through structured challenge |
+| Technical approach | System prompt: "Never write text the student could submit as their own. Only ask questions, identify logical gaps, and suggest areas to strengthen. Challenge the student's reasoning." |
+| Data needed | None — general knowledge |
+| Limitation | Must be carefully prompted to avoid generating essay-quality text that students could copy |
 
 ---
 

@@ -57,6 +57,7 @@
 > This tool answers questions based on Webb's official website (117 pages) and school documents including the Student Handbook, Course Catalog, and College Guidance Brochure. You can ask anything from dorm policies to the men's 100m school record.
 >
 > Please visit **webb-ai.onrender.com** and spend 2-3 minutes asking a few questions you actually care about.
+> **You can ask in any language** — the menu may be in English, but if you type in 中文, 한국어, Español, or any other language, it will reply in that language.
 
 **Q6.** Overall, how was your experience?
 - 1 (Poor) / 2 / 3 / 4 / 5 (Excellent)
@@ -249,3 +250,11 @@
 - **Timeline**: Send during spring break, collect for 1 week
 - **Sample size target**: 30+ students, 15+ parents would be meaningful for a school of Webb's size (~300 students)
 - **Reporting**: Use "among surveyed students/parents" — not "most students think..."
+
+---
+
+## Footer (on all survey versions)
+
+> *This survey was designed with AI assistance — which is kind of the point.* 😉
+>
+> *本问卷由 AI 辅助设计——这恰好说明了 AI 能为学生做什么。*
