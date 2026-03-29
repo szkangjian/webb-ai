@@ -477,7 +477,7 @@ The assistant will reply in whatever language you use.
 
 ```
 This survey was designed with AI assistance — which is kind of the point. 😉
-本问卷由 AI 辅助设计——这恰好说明了 AI 能为学生做什么。
+本问卷由 AI 辅助设计。
 ```
 
 ---
